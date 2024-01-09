@@ -1,0 +1,7 @@
+.colunas{
+  margin: 20px;
+  border: 1px solid lightgray;
+  height: 150px;
+  border-radius: 20px;
+  box-shadow: 2px 2px 2px lightgray;
+}

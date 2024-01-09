@@ -1,0 +1,94 @@
+.canvaContainer{
+    border: 1px solid lightgray;
+    width: 500px;
+    height: auto;
+    color: rgb(165, 163, 163);
+    border-radius: 5px;
+}
+
+
+.headerCanva {
+    height: 50px;
+    font-size: 30px;
+    font-weight: bold;
+  }
+  
+
+.customBorder{
+    border-bottom: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    border-top: 1px solid lightgray;
+    height: 50px;
+}
+
+.customBorder2{
+    border-bottom: 1px solid lightgray;
+    border-top: 1px solid lightgray;
+    height: 50px;
+}
+
+.customBorder3{
+    border-bottom: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    height: 150px;
+}
+
+.customBorder4{
+    border-bottom: 1px solid lightgray;
+    height: 150px;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.customBorder5{
+    border-right: 1px solid lightgray;
+    height: auto;
+    display: flex;
+    align-items: center;
+}
+
+
+.customBorder6{
+    height: auto;
+}
+
+.customBorder7{
+    min-height: auto;
+}
+
+.customBorder8{
+    height: auto;
+    display: flex;
+    align-items: center;
+} 
+
+.box {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)); 
+    grid-gap: 5px;
+    margin: auto;
+    width: 200px;
+    height: 150px;
+  }
+
+  div.post-it {
+    width: 100%; 
+    height: 80%; 
+    background-color: #feff32;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+    margin-bottom: 10px; 
+  }
+
+  div.post-it2 {
+    width: 100%; 
+    height: 40%; 
+    background-color: #feff32;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+    margin-bottom: 10px; 
+    font-size: 10px;
+    font-weight: bold;
+  }
+
+
+
+  

@@ -1,0 +1,26 @@
+
+
+.header{
+    width: 100%;
+    height: 30px;
+    background-color: black;
+}
+
+
+.home{
+    color: gray;
+    cursor: pointer;
+    transition: transform 0.5s ease;
+    transform-origin: left;
+    font-size: 17px;
+  
+}
+
+.home:hover{
+    color: black;
+    transform: scaleX(1.02); 
+}
+
+.newContainer{
+    
+}
