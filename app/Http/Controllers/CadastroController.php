@@ -13,6 +13,17 @@ class CadastroController extends Controller
      return response($cadastro, 200);
      }
 
+     public function getCadastroByEmail($email) {
+        $cadastro = Cadastro::where('email', $email)->first();
+    
+        if ($cadastro) {
+            return response()->json($cadastro, 200);
+        } else {
+            return response()->json(['message' => 'Cadastro não encontrado para o email fornecido'], 404);
+        }
+    }
+    
+
      public function getAllColaboradoresAtestado() {
       $atestado = Atestado::get()->toJson(JSON_PRETTY_PRINT);
    return response($atestado, 200);

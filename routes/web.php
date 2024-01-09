@@ -55,4 +55,7 @@ Route::middleware([
 
     Route::put('/funcionario/{id}', [CadastroController::class, 'update']);
 
+    Route::get('/cadastro/{email}', [CadastroController::class, 'getCadastroByEmail']);
+
+
 });

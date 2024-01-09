@@ -52,11 +52,11 @@ export default function App() {
         const userData = responseUser.data;
         //Precisa adicionar uma lógica para adicionar o administrador
 
-        setListaCadastro([userData]);
 
         // Segunda requisição para obter a lista original
-        const responseListaOriginal = await axios.get('/cadastrados');
-        const listaOriginal = responseListaOriginal.data;
+        const responseListaOriginal = await axios.get(`/cadastro/${responseUser.data.email}`);
+        const listaOriginal = [responseListaOriginal.data];
+        console.log('listaOriginal',listaOriginal)
 
         let novoUsuario = null;
         if (listaOriginal.length == 0) {

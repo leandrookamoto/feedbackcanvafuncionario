@@ -105,19 +105,17 @@ export default function Feedback({
         await axios.delete(`/deleteFuncionario/${idFuncionario}`);
 
         // Faz a requisição para obter a lista de funcionários atualizada
-        const response = await axios.get('/cadastrados');
+        const response = await await axios.get(`/cadastro/${responseUser.data.email}`);
         const lista = response.data;
-        const listaFiltrada2 = lista.filter(
-          (item) => item.administrador === usuario,
-        );
+        
         const id = response.data.length
           ? lista[response.data.length - 1].id
           : 0;
         console.log(`Este é o id final: ${id}`);
         // Atualiza o estado dadosFuncionario com a lista filtrada recebida
-        setDadosFuncionario(listaFiltrada2);
-        setListaFiltrada(listaFiltrada2);
-        onChangeListaCadastro(listaFiltrada2);
+        setDadosFuncionario(lista);
+        setListaFiltrada(lista);
+        onChangeListaCadastro(lista);
         onChangeNewId(id);
         // Agora que as operações assíncronas foram concluídas, atualiza a variável de controle
         setFuncionarioEscolhido(false);

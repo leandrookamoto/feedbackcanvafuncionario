@@ -14832,14 +14832,13 @@ function App() {
             case 3:
               responseUser = _context.sent;
               userData = responseUser.data; //Precisa adicionar uma lógica para adicionar o administrador
-              setListaCadastro([userData]);
-
               // Segunda requisição para obter a lista original
-              _context.next = 8;
-              return axios.get('/cadastrados');
-            case 8:
+              _context.next = 7;
+              return axios.get("/cadastro/".concat(responseUser.data.email));
+            case 7:
               responseListaOriginal = _context.sent;
-              listaOriginal = responseListaOriginal.data;
+              listaOriginal = [responseListaOriginal.data];
+              console.log('listaOriginal', listaOriginal);
               novoUsuario = null;
               if (!(listaOriginal.length == 0)) {
                 _context.next = 17;
@@ -15386,9 +15385,18 @@ function Canva(_ref) {
 
           // Utiliza os valores do objeto para atualizar os estados
           setListaCanva(avaliacoes);
-          setSenioridade(avaliacoes.senioridade);
-          setMouthDate(avaliacoes.mes);
-          setYearDate(avaliacoes.ano);
+          setSenioridade(avaliacoes.map(function (item) {
+            return item.senioridade;
+          }));
+          setMouthDate(avaliacoes.map(function (item) {
+            return item.mes;
+          }));
+          setYearDate(avaliacoes.map(function (item) {
+            return item.ano;
+          }));
+          console.log('senioridade', avaliacoes.map(function (item) {
+            return item.mes;
+          }));
         }
       }
     });
@@ -16619,7 +16627,7 @@ function Feedback(_ref) {
   } //Função para editar o funcionário
   function _apagar() {
     _apagar = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-      var response, lista, listaFiltrada2, id;
+      var response, lista, id;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
@@ -16633,7 +16641,7 @@ function Feedback(_ref) {
           case 4:
             setValidacaoApagar(true);
             if (!validacaoApagar) {
-              _context.next = 28;
+              _context.next = 29;
               break;
             }
             _context.prev = 6;
@@ -16641,36 +16649,36 @@ function Feedback(_ref) {
             return axios["delete"]("/deleteFuncionario/".concat(idFuncionario));
           case 9:
             _context.next = 11;
-            return axios.get('/cadastrados');
+            return axios.get("/cadastro/".concat(responseUser.data.email));
           case 11:
+            _context.next = 13;
+            return _context.sent;
+          case 13:
             response = _context.sent;
             lista = response.data;
-            listaFiltrada2 = lista.filter(function (item) {
-              return item.administrador === usuario;
-            });
             id = response.data.length ? lista[response.data.length - 1].id : 0;
             console.log("Este \xE9 o id final: ".concat(id));
             // Atualiza o estado dadosFuncionario com a lista filtrada recebida
-            setDadosFuncionario(listaFiltrada2);
-            setListaFiltrada(listaFiltrada2);
-            onChangeListaCadastro(listaFiltrada2);
+            setDadosFuncionario(lista);
+            setListaFiltrada(lista);
+            onChangeListaCadastro(lista);
             onChangeNewId(id);
             // Agora que as operações assíncronas foram concluídas, atualiza a variável de controle
             setFuncionarioEscolhido(false);
             setValidacaoApagar(false);
             apagarRef.current = true;
-            _context.next = 28;
+            _context.next = 29;
             break;
-          case 25:
-            _context.prev = 25;
+          case 26:
+            _context.prev = 26;
             _context.t0 = _context["catch"](6);
             // Tratar erros caso a deleção ou a requisição GET falhem
             console.error('Erro ao apagar o funcionário ou obter a lista:', _context.t0);
-          case 28:
+          case 29:
           case "end":
             return _context.stop();
         }
-      }, _callee, null, [[6, 25]]);
+      }, _callee, null, [[6, 26]]);
     }));
     return _apagar.apply(this, arguments);
   }

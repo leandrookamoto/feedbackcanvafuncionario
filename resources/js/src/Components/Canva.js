@@ -96,9 +96,11 @@ export default function Canva({
   
           // Utiliza os valores do objeto para atualizar os estados
           setListaCanva(avaliacoes);
-          setSenioridade(avaliacoes.senioridade);
-          setMouthDate(avaliacoes.mes);
-          setYearDate(avaliacoes.ano);
+          setSenioridade(avaliacoes.map(item=>item.senioridade));
+          setMouthDate(avaliacoes.map(item=>item.mes));
+          setYearDate(avaliacoes.map(item=>item.ano));
+
+          console.log('senioridade',avaliacoes.map(item=>item.mes))
         }
       }
     });
