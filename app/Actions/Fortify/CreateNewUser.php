@@ -24,7 +24,6 @@ class CreateNewUser implements CreatesNewUsers
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),
             'setor' => ['required', 'string', 'max:255'],
-            'responsavel' => ['required', 'string', 'max:255'],
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
 
@@ -32,7 +31,6 @@ class CreateNewUser implements CreatesNewUsers
             'name' => $input['name'],
             'email' => $input['email'],
             'setor' => $input['setor'],
-            'responsavel' => $input['responsavel'],
             'password' => Hash::make($input['password']),
         ]);
     }

@@ -23,6 +23,7 @@ Route::get('/', function () {
     return view('../auth/login');
 });
 
+Route::get('/register', [CadastroController::class,'mostrarFormularioRegistro'])->name('register');
 
 
 // Middleware
@@ -42,6 +43,8 @@ Route::middleware([
 
     // Endpoint para recuperar os dados do usuário
     Route::get('/api/user', [UserController::class, 'getUserData']);
+    
+    Route::get('/responsavel/{setor}', [CadastroController::class, 'getResponsavelCadastro']);
 
     Route::get('/colaboradores-atestado', [CadastroController::class, 'getAllColaboradoresAtestado']);
 
@@ -56,6 +59,8 @@ Route::middleware([
     Route::put('/funcionario/{id}', [CadastroController::class, 'update']);
 
     Route::get('/cadastro/{email}', [CadastroController::class, 'getCadastroByEmail']);
+
+    
 
 
 });

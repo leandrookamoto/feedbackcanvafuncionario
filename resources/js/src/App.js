@@ -49,34 +49,51 @@ export default function App() {
     const fetchUserData = async () => {
       try {
         const responseUser = await axios.get('/user');
-        const userData = responseUser.data;
-        //Precisa adicionar uma lógica para adicionar o administrador
+        let userData = responseUser.data;
+        console.log(userData.setor);
 
+        // ... (código para adicionar o administrador)
 
-        // Segunda requisição para obter a lista original
-        const responseListaOriginal = await axios.get(`/cadastro/${responseUser.data.email}`);
-        const listaOriginal = [responseListaOriginal.data];
-        console.log('listaOriginal',listaOriginal)
+        const responseResponsavel = await axios.get(
+          `/responsavel/${userData.setor}`,
+        );
+        userData.responsavel = responseResponsavel.data;
+        setUsuario(userData);
+
+        console.log(responseUser.data.email);
 
         let novoUsuario = null;
-        if (listaOriginal.length == 0) {
-          novoUsuario = {
-            nome: userData.name,
-            email: userData.email,
-            setor: userData.setor,
-            administrador: userData.responsavel,
-          };
-          await axios.post('/cadastrar-usuario', novoUsuario);
-        } else {
-          novoUsuario = listaOriginal;
+
+        try {
+          // Tentativa de obter os dados do usuário cadastrado
+          const responseListaOriginal = await axios.get(
+            `/cadastro/${responseUser.data.email}`,
+          );
+          const listaOriginal = responseListaOriginal.data;
+          console.log('listaOriginal', listaOriginal);
+          setListaCadastro([listaOriginal]);
+
+          console.log(userData);
+        } catch (error) {
+          // Se a requisição retornar erro 404, significa que o usuário não está cadastrado
+          if (error.response && error.response.status === 404) {
+            console.log('Usuário não cadastrado');
+            console.log(userData.name)
+
+            novoUsuario = {
+              nome: userData.name,
+              email: userData.email,
+              setor: userData.setor,
+              administrador: userData.responsavel,
+            };
+            setIdFuncionario2(userData.id);
+            setListaCadastro([novoUsuario]);
+            await axios.post('/cadastrar-usuario', novoUsuario);
+            // Aqui você pode realizar o cadastro, se necessário
+          } else {
+            console.error('Erro ao buscar dados de cadastro:', error);
+          }
         }
-
-        setIdFuncionario2(novoUsuario.map(item=>item.id).join());
-        setListaCadastro(novoUsuario);
-        console.log('id',novoUsuario.map(item=>item.id).join());
-        console.log('Usuário cadastrado com sucesso:', novoUsuario);
-
-        console.log(userData);
       } catch (error) {
         console.error('Erro ao buscar dados:', error);
       }

@@ -5,9 +5,29 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cadastro;
 use App\Models\Atestado;
+use App\Models\Setor;
 
 class CadastroController extends Controller
 {
+    public function mostrarFormularioRegistro()
+    {
+        $setores = Setor::pluck('setor', 'id')->toArray();
+        return view('auth.register', compact('setores'));
+    }
+
+
+
+     public function getResponsavelCadastro($setor) {
+        $cadastro = Setor::where('setor', $setor)->first();
+    
+        if ($cadastro) {
+            return response()->json($cadastro->name, 200);
+        } else {
+            return response()->json(['message' => 'Cadastro não encontrado para o setor fornecido'], 404);
+        }
+    }
+
+
     public function getAllCadastro() {
         $cadastro = Cadastro::get()->toJson(JSON_PRETTY_PRINT);
      return response($cadastro, 200);

@@ -14822,7 +14822,7 @@ function App() {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var fetchUserData = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var responseUser, userData, responseListaOriginal, listaOriginal, novoUsuario;
+        var responseUser, userData, responseResponsavel, novoUsuario, responseListaOriginal, listaOriginal;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
@@ -14831,53 +14831,65 @@ function App() {
               return axios.get('/user');
             case 3:
               responseUser = _context.sent;
-              userData = responseUser.data; //Precisa adicionar uma lógica para adicionar o administrador
-              // Segunda requisição para obter a lista original
-              _context.next = 7;
-              return axios.get("/cadastro/".concat(responseUser.data.email));
-            case 7:
-              responseListaOriginal = _context.sent;
-              listaOriginal = [responseListaOriginal.data];
-              console.log('listaOriginal', listaOriginal);
+              userData = responseUser.data;
+              console.log(userData.setor);
+
+              // ... (código para adicionar o administrador)
+              _context.next = 8;
+              return axios.get("/responsavel/".concat(userData.setor));
+            case 8:
+              responseResponsavel = _context.sent;
+              userData.responsavel = responseResponsavel.data;
+              setUsuario(userData);
+              console.log(responseUser.data.email);
               novoUsuario = null;
-              if (!(listaOriginal.length == 0)) {
-                _context.next = 17;
+              _context.prev = 13;
+              _context.next = 16;
+              return axios.get("/cadastro/".concat(responseUser.data.email));
+            case 16:
+              responseListaOriginal = _context.sent;
+              listaOriginal = responseListaOriginal.data;
+              console.log('listaOriginal', listaOriginal);
+              setListaCadastro([listaOriginal]);
+              console.log(userData);
+              _context.next = 36;
+              break;
+            case 23:
+              _context.prev = 23;
+              _context.t0 = _context["catch"](13);
+              if (!(_context.t0.response && _context.t0.response.status === 404)) {
+                _context.next = 35;
                 break;
               }
+              console.log('Usuário não cadastrado');
+              console.log(userData.name);
               novoUsuario = {
                 nome: userData.name,
                 email: userData.email,
                 setor: userData.setor,
                 administrador: userData.responsavel
               };
-              _context.next = 15;
+              setIdFuncionario2(userData.id);
+              setListaCadastro([novoUsuario]);
+              _context.next = 33;
               return axios.post('/cadastrar-usuario', novoUsuario);
-            case 15:
-              _context.next = 18;
+            case 33:
+              _context.next = 36;
               break;
-            case 17:
-              novoUsuario = listaOriginal;
-            case 18:
-              setIdFuncionario2(novoUsuario.map(function (item) {
-                return item.id;
-              }).join());
-              setListaCadastro(novoUsuario);
-              console.log('id', novoUsuario.map(function (item) {
-                return item.id;
-              }).join());
-              console.log('Usuário cadastrado com sucesso:', novoUsuario);
-              console.log(userData);
-              _context.next = 28;
+            case 35:
+              console.error('Erro ao buscar dados de cadastro:', _context.t0);
+            case 36:
+              _context.next = 41;
               break;
-            case 25:
-              _context.prev = 25;
-              _context.t0 = _context["catch"](0);
-              console.error('Erro ao buscar dados:', _context.t0);
-            case 28:
+            case 38:
+              _context.prev = 38;
+              _context.t1 = _context["catch"](0);
+              console.error('Erro ao buscar dados:', _context.t1);
+            case 41:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[0, 25]]);
+        }, _callee, null, [[0, 38], [13, 23]]);
       }));
       return function fetchUserData() {
         return _ref.apply(this, arguments);
@@ -15353,8 +15365,11 @@ function Canva(_ref) {
       setMouthDate(render.map(function (item) {
         return item.mes;
       }));
+      setSenioridade(render.map(function (item) {
+        return item.senioridade;
+      }));
       console.table(render);
-      setListaRender(render); // Definindo disretamente o resultado do filtro
+      setListaRender(render);
     }
   }, [listaCanva, dataHistorico]);
   //useEffect para resetar a const atividades
@@ -15385,16 +15400,10 @@ function Canva(_ref) {
 
           // Utiliza os valores do objeto para atualizar os estados
           setListaCanva(avaliacoes);
-          setSenioridade(avaliacoes.map(function (item) {
-            return item.senioridade;
-          }));
-          setMouthDate(avaliacoes.map(function (item) {
-            return item.mes;
-          }));
-          setYearDate(avaliacoes.map(function (item) {
-            return item.ano;
-          }));
-          console.log('senioridade', avaliacoes.map(function (item) {
+          setSenioridade(avaliacoes[avaliacoes.length - 1].senioridade);
+          setMouthDate(avaliacoes[avaliacoes.length - 1].mes);
+          setYearDate(avaliacoes[avaliacoes.length - 1].ano);
+          console.log('mes', avaliacoes.map(function (item) {
             return item.mes;
           }));
         }
@@ -15424,7 +15433,7 @@ function Canva(_ref) {
               break;
             }
             setOpenValidaData(true);
-            _context.next = 27;
+            _context.next = 28;
             break;
           case 8:
             if (!(!isValidAtencao || !isValidAtividades || !isValidFortes || !isValidMelhorias)) {
@@ -15432,7 +15441,7 @@ function Canva(_ref) {
               break;
             }
             setOpen(true);
-            _context.next = 27;
+            _context.next = 28;
             break;
           case 12:
             _context.prev = 12;
@@ -15447,35 +15456,35 @@ function Canva(_ref) {
               mes: mouthDate,
               ano: yearDate
             };
+            console.log(_lista);
             setSenioridade(senior);
             setListaCanva([].concat(_toConsumableArray(listaCanva), [_lista]));
-            _context.next = 19;
+            _context.next = 20;
             return axios.put("/cadastro/".concat(idFuncionario2, "/update-avaliacao"), {
               avaliacoes: [].concat(_toConsumableArray(listaCanva), [_lista])
             });
-          case 19:
+          case 20:
             response = _context.sent;
             onHistorico(true);
             onAvaliacao(false);
-            _context.next = 27;
+            _context.next = 28;
             break;
-          case 24:
-            _context.prev = 24;
+          case 25:
+            _context.prev = 25;
             _context.t0 = _context["catch"](12);
             console.error('Erro ao enviar requisição:', _context.t0);
             // Tratar erros, se necessário
-          case 27:
+          case 28:
           case "end":
             return _context.stop();
         }
-      }, _callee, null, [[12, 24]]);
+      }, _callee, null, [[12, 25]]);
     }));
     return _gravar.apply(this, arguments);
   }
   function apagarPrimeiro() {
-    var primeiroRemovido = listaCanva[0]; // Armazena o primeiro elemento antes de removê-lo
-    var listaAtualizada = listaCanva.slice(1); // Cria uma nova lista sem o primeiro elemento
-
+    var primeiroRemovido = listaCanva[0];
+    var listaAtualizada = listaCanva.slice(1);
     try {
       var response = axios.put("/cadastro/".concat(idFuncionario2, "/update-avaliacao"), {
         avaliacoes: JSON.stringify(listaAtualizada) // Envie a lista no formato esperado pela API
@@ -15498,10 +15507,9 @@ function Canva(_ref) {
       var response = axios.put("/cadastro/".concat(idFuncionario2, "/update-avaliacao"), {
         avaliacoes: JSON.stringify(listaAtualizada) // Envie a lista no formato esperado pela API
       });
-      console.log(response.data); // Confirmação de atualização da API
-
+      console.log(response.data);
       setListaCanva(listaAtualizada);
-      setListaRender([listaAtualizada[listaAtualizada.length - 1]]); // Mantém somente o último elemento na listaRender
+      setListaRender([listaAtualizada[listaAtualizada.length - 2]]); // Mantém somente o último elemento na listaRender
     } catch (error) {
       console.error('Houve um erro ao atualizar:', error);
       // Tratar o erro adequadamente
@@ -16893,7 +16901,9 @@ function Home(_ref) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("section", {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h3", {
-        children: ["Ol\xE1, ", usuario, "!"]
+        children: ["Ol\xE1, ", usuario.name, "!"]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h3", {
+        children: ["Gestor Direto: ", usuario.responsavel, "!"]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Chart__WEBPACK_IMPORTED_MODULE_0__["default"], {
         data: data
       })]

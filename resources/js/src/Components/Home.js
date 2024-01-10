@@ -47,7 +47,8 @@ export default function Home({ usuario, listaCadastro }) {
   return (
     <>
       <section>
-        <h3>Olá, {usuario}!</h3>
+        <h3>Olá, {usuario.name}!</h3>
+        <h3>Gestor Direto: {usuario.responsavel}!</h3>
         <Chart data={data} />
       </section>
     </>

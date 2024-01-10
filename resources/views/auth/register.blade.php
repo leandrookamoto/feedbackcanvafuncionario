@@ -3,6 +3,7 @@
         <x-slot name="logo">
         <img src='./img/logo.jpg' />
         </x-slot>
+        
 
         <x-validation-errors class="mb-4" />
 
@@ -29,15 +30,19 @@
                 <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
             </div>
 
+            
             <div class="mt-4">
                 <x-label for="setor" value="{{ __('Setor') }}" />
-                <x-input id="setor" class="block mt-1 w-full" type="text" name="setor" required autofocus />
+                <select id="setor" name="setor" class="block mt-1 w-full" required autofocus style='border-color: rgb(209 213 219); border-radius: 7px;'>
+                    @foreach($setores as $id => $nome)
+                        <option value="{{ $nome }}">{{ $nome }}</option>
+                    @endforeach
+                </select>
             </div>
 
-            <div class="mt-4">
-                <x-label for="administrador" value="{{ __('Gestor direto') }}" />
-                <x-input id="responsavel" class="block mt-1 w-full" type="text" name="responsavel" required autofocus />
-            </div>
+     
+
+
 
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                 <div class="mt-4">

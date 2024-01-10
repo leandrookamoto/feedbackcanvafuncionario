@@ -65,8 +65,9 @@ export default function Canva({
       }
       setYearDate(render.map((item) => item.ano));
       setMouthDate(render.map((item) => item.mes));
+      setSenioridade(render.map((item) => item.senioridade));
       console.table(render);
-      setListaRender(render); // Definindo disretamente o resultado do filtro
+      setListaRender(render);
     }
   }, [listaCanva, dataHistorico]);
   //useEffect para resetar a const atividades
@@ -86,26 +87,29 @@ export default function Canva({
     axios.get('/cadastrados').then((response) => {
       const lista = response.data;
       if (idFuncionario2) {
-        let avaliacoes = JSON.parse(lista.find((objeto) => objeto.id == idFuncionario2).avaliacoes);
+        let avaliacoes = JSON.parse(
+          lista.find((objeto) => objeto.id == idFuncionario2).avaliacoes,
+        );
         console.log(avaliacoes);
-        
+
         // Verifica se avaliacoes não é undefined antes de realizar operações
         if (avaliacoes) {
           // Converte as propriedades do objeto de string para o formato desejado (se necessário)
 
-  
           // Utiliza os valores do objeto para atualizar os estados
           setListaCanva(avaliacoes);
-          setSenioridade(avaliacoes.map(item=>item.senioridade));
-          setMouthDate(avaliacoes.map(item=>item.mes));
-          setYearDate(avaliacoes.map(item=>item.ano));
+          setSenioridade(avaliacoes[avaliacoes.length - 1].senioridade);
+          setMouthDate(avaliacoes[avaliacoes.length - 1].mes);
+          setYearDate(avaliacoes[avaliacoes.length - 1].ano);
 
-          console.log('senioridade',avaliacoes.map(item=>item.mes))
+          console.log(
+            'mes',
+            avaliacoes.map((item) => item.mes),
+          );
         }
       }
     });
   }, [avaliar2, historico]);
-  
 
   //Funções principais
   //Função para gravar os dados
@@ -141,6 +145,8 @@ export default function Canva({
             ano: yearDate,
           };
 
+          console.log(lista);
+
           setSenioridade(senior);
           setListaCanva([...listaCanva, lista]);
 
@@ -162,8 +168,8 @@ export default function Canva({
   }
   // Função para apagar primeiro gráfico
   function apagarPrimeiro() {
-    const primeiroRemovido = listaCanva[0]; // Armazena o primeiro elemento antes de removê-lo
-    const listaAtualizada = listaCanva.slice(1); // Cria uma nova lista sem o primeiro elemento
+    const primeiroRemovido = listaCanva[0];
+    const listaAtualizada = listaCanva.slice(1);
 
     try {
       const response = axios.put(
@@ -195,10 +201,10 @@ export default function Canva({
         },
       );
 
-      console.log(response.data); // Confirmação de atualização da API
+      console.log(response.data);
 
       setListaCanva(listaAtualizada);
-      setListaRender([listaAtualizada[listaAtualizada.length - 1]]); // Mantém somente o último elemento na listaRender
+      setListaRender([listaAtualizada[listaAtualizada.length - 2]]); // Mantém somente o último elemento na listaRender
     } catch (error) {
       console.error('Houve um erro ao atualizar:', error);
       // Tratar o erro adequadamente
