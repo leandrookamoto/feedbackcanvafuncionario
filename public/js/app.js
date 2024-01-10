@@ -14851,14 +14851,15 @@ function App() {
               listaOriginal = responseListaOriginal.data;
               console.log('listaOriginal', listaOriginal);
               setListaCadastro([listaOriginal]);
+              setIdFuncionario2(listaOriginal.id);
               console.log(userData);
-              _context.next = 36;
+              _context.next = 37;
               break;
-            case 23:
-              _context.prev = 23;
+            case 24:
+              _context.prev = 24;
               _context.t0 = _context["catch"](13);
               if (!(_context.t0.response && _context.t0.response.status === 404)) {
-                _context.next = 35;
+                _context.next = 36;
                 break;
               }
               console.log('Usuário não cadastrado');
@@ -14871,25 +14872,25 @@ function App() {
               };
               setIdFuncionario2(userData.id);
               setListaCadastro([novoUsuario]);
-              _context.next = 33;
+              _context.next = 34;
               return axios.post('/cadastrar-usuario', novoUsuario);
-            case 33:
-              _context.next = 36;
+            case 34:
+              _context.next = 37;
               break;
-            case 35:
-              console.error('Erro ao buscar dados de cadastro:', _context.t0);
             case 36:
-              _context.next = 41;
+              console.error('Erro ao buscar dados de cadastro:', _context.t0);
+            case 37:
+              _context.next = 42;
               break;
-            case 38:
-              _context.prev = 38;
+            case 39:
+              _context.prev = 39;
               _context.t1 = _context["catch"](0);
               console.error('Erro ao buscar dados:', _context.t1);
-            case 41:
+            case 42:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[0, 38], [13, 23]]);
+        }, _callee, null, [[0, 39], [13, 24]]);
       }));
       return function fetchUserData() {
         return _ref.apply(this, arguments);

@@ -72,6 +72,7 @@ export default function App() {
           const listaOriginal = responseListaOriginal.data;
           console.log('listaOriginal', listaOriginal);
           setListaCadastro([listaOriginal]);
+          setIdFuncionario2(listaOriginal.id);
 
           console.log(userData);
         } catch (error) {
