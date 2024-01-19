@@ -47,9 +47,10 @@ export default function App() {
   // Primeira requisição para a recuperação dos dados dos usuários ao inicializar o programa
   useEffect(() => {
     const fetchUserData = async () => {
+      let userData=[]
       try {
         const responseUser = await axios.get('/user');
-        let userData = responseUser.data;
+        userData = responseUser.data;
         console.log(userData.setor);
 
         // ... (código para adicionar o administrador)
@@ -79,7 +80,7 @@ export default function App() {
           // Se a requisição retornar erro 404, significa que o usuário não está cadastrado
           if (error.response && error.response.status === 404) {
             console.log('Usuário não cadastrado');
-            console.log(userData.name)
+            console.log(userData.name);
 
             novoUsuario = {
               nome: userData.name,
@@ -87,7 +88,9 @@ export default function App() {
               setor: userData.setor,
               administrador: userData.responsavel,
             };
+            console.log('useData dentro do novo', userData)
             setIdFuncionario2(userData.id);
+            console.log('userId', userData.id);
             setListaCadastro([novoUsuario]);
             await axios.post('/cadastrar-usuario', novoUsuario);
             // Aqui você pode realizar o cadastro, se necessário

@@ -14822,44 +14822,45 @@ function App() {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var fetchUserData = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var responseUser, userData, responseResponsavel, novoUsuario, responseListaOriginal, listaOriginal;
+        var userData, responseUser, responseResponsavel, novoUsuario, responseListaOriginal, listaOriginal;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              _context.prev = 0;
-              _context.next = 3;
+              userData = [];
+              _context.prev = 1;
+              _context.next = 4;
               return axios.get('/user');
-            case 3:
+            case 4:
               responseUser = _context.sent;
               userData = responseUser.data;
               console.log(userData.setor);
 
               // ... (código para adicionar o administrador)
-              _context.next = 8;
+              _context.next = 9;
               return axios.get("/responsavel/".concat(userData.setor));
-            case 8:
+            case 9:
               responseResponsavel = _context.sent;
               userData.responsavel = responseResponsavel.data;
               setUsuario(userData);
               console.log(responseUser.data.email);
               novoUsuario = null;
-              _context.prev = 13;
-              _context.next = 16;
+              _context.prev = 14;
+              _context.next = 17;
               return axios.get("/cadastro/".concat(responseUser.data.email));
-            case 16:
+            case 17:
               responseListaOriginal = _context.sent;
               listaOriginal = responseListaOriginal.data;
               console.log('listaOriginal', listaOriginal);
               setListaCadastro([listaOriginal]);
               setIdFuncionario2(listaOriginal.id);
               console.log(userData);
-              _context.next = 37;
+              _context.next = 40;
               break;
-            case 24:
-              _context.prev = 24;
-              _context.t0 = _context["catch"](13);
+            case 25:
+              _context.prev = 25;
+              _context.t0 = _context["catch"](14);
               if (!(_context.t0.response && _context.t0.response.status === 404)) {
-                _context.next = 36;
+                _context.next = 39;
                 break;
               }
               console.log('Usuário não cadastrado');
@@ -14870,27 +14871,29 @@ function App() {
                 setor: userData.setor,
                 administrador: userData.responsavel
               };
+              console.log('useData dentro do novo', userData);
               setIdFuncionario2(userData.id);
+              console.log('userId', userData.id);
               setListaCadastro([novoUsuario]);
-              _context.next = 34;
-              return axios.post('/cadastrar-usuario', novoUsuario);
-            case 34:
               _context.next = 37;
-              break;
-            case 36:
-              console.error('Erro ao buscar dados de cadastro:', _context.t0);
+              return axios.post('/cadastrar-usuario', novoUsuario);
             case 37:
-              _context.next = 42;
+              _context.next = 40;
               break;
             case 39:
-              _context.prev = 39;
-              _context.t1 = _context["catch"](0);
-              console.error('Erro ao buscar dados:', _context.t1);
+              console.error('Erro ao buscar dados de cadastro:', _context.t0);
+            case 40:
+              _context.next = 45;
+              break;
             case 42:
+              _context.prev = 42;
+              _context.t1 = _context["catch"](1);
+              console.error('Erro ao buscar dados:', _context.t1);
+            case 45:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[0, 39], [13, 24]]);
+        }, _callee, null, [[1, 42], [14, 25]]);
       }));
       return function fetchUserData() {
         return _ref.apply(this, arguments);
