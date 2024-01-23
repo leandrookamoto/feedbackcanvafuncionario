@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Cadastro;
 use App\Models\Atestado;
 use App\Models\Setor;
+use App\Models\FeedbackCanva;
 
 class CadastroController extends Controller
 {
@@ -27,10 +28,36 @@ class CadastroController extends Controller
         }
     }
 
+    public function updatePlano(Request $request, $id) {
+        if (FeedbackCanva::where('id', $id)->exists()) {
+          $funcionario = FeedbackCanva::find($id);
+          $funcionario->plano = is_null($request->plano) ? $funcionario->plano : $request->plano;
+          $funcionario->save();
+    
+          return response()->json([
+              "message" => "records updated successfully"
+          ], 200);
+          } else {
+          return response()->json([
+              "message" => "Plano not found"
+          ], 404);
+      }
+      }
+
 
     public function getAllCadastro() {
         $cadastro = Cadastro::get()->toJson(JSON_PRETTY_PRINT);
      return response($cadastro, 200);
+     }
+
+     public function getAllCadastroFeedback($email) {
+        $feedback = FeedbackCanva::where('email', $email)->first();
+
+        if (!$feedback) {
+            return response()->json(['message' => 'Nenhum feedback encontrado para o email fornecido.'], 404);
+        }
+
+        return response()->json($feedback);
      }
 
      public function getCadastroByEmail($email) {

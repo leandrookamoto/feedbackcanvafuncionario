@@ -8,12 +8,14 @@ import Home from './Components/Home';
 import validator from 'validator';
 import Dialog from './Components/Dialog';
 import Feedback from './Components/Feedback';
+import Planodeacao from './Components/Planodeacao';
+
 
 export default function App() {
   //Variáveis para mudança de tela
-  const [cadastrar, setCadastrar] = useState(false);
   const [homeRender, setHomeRender] = useState(true);
   const [feedback, setFeedback] = useState(false);
+  const [planoDeAcao,setPlanoDeAcao] = useState(false);
 
   //Variáveis para gravação de estado
   const [usuario, setUsuario] = useState('');
@@ -283,21 +285,26 @@ export default function App() {
   //Funções para renderização dos componentes
   //Função para renderização do componente de cadastro
   function handleCadastrar() {
-    setCadastrar(true);
     setFeedback(false);
     setHomeRender(false);
   }
   //Função para renderização do componente de feedback
   function handleCadastrados() {
-    setCadastrar(false);
     setFeedback(true);
     setHomeRender(false);
+    setPlanoDeAcao(false);
   }
   // Função para renderização do componente Home
   function handleHome() {
     setHomeRender(true);
-    setCadastrar(false);
     setFeedback(false);
+    setPlanoDeAcao(false);
+  }
+
+  function handlePlano() {
+    setHomeRender(false);
+    setFeedback(false);
+    setPlanoDeAcao(true);
   }
 
   return (
@@ -309,6 +316,7 @@ export default function App() {
           onClickCadastrar={handleCadastrar}
           onClickCadastrados={handleCadastrados}
           onClickHome={handleHome}
+          onClickPlano={handlePlano}
         />
 
         <div className="m-3" style={{ width: '70%' }}>
@@ -320,6 +328,18 @@ export default function App() {
           {/* Aqui é a renderização do componente do feedback */}
           {feedback && (
             <Feedback
+              listaCadastro={listaCadastro}
+              usuario={usuario}
+              onChangeListaCadastro={(e) => setListaCadastro(e)}
+              onChangeDadosFuncionario={(e) => handleDadosFuncionario(e)}
+              dados={dados}
+              idFuncionario2={idFuncionario2}
+            />
+          )}
+
+          {/* Aqui é a renderização do componente do Plano de ação */}
+          {planoDeAcao && (
+            <Planodeacao
               listaCadastro={listaCadastro}
               usuario={usuario}
               onChangeListaCadastro={(e) => setListaCadastro(e)}

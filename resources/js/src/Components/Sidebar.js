@@ -1,9 +1,10 @@
 import './Sidebar.css';
 
 export default function Sidebar({
-  onClickCadastrar,
   onClickCadastrados,
   onClickHome,
+  planoDeAcao,
+  onClickPlano
 }) {
   // Todos as props são enviados para o App.js
   return (
@@ -53,6 +54,28 @@ export default function Sidebar({
           <path d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8m0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5" />
         </svg>{' '}
         <div className="ml-3 home">Feedback</div>
+      </div>
+
+       {/* Parte responsável pela renderização do componente de plano de ação */}
+       <div
+        className={planoDeAcao ? 'd-flex mt-2 home escolhido' : 'd-flex mt-2 home'}
+        style={{ marginLeft: '50px' }}
+        onClick={onClickPlano}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          className="bi bi-calendar-event mt-1"
+          viewBox="0 0 16 16"
+        >
+          <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z" />
+          <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z" />
+        </svg>
+        <div className={planoDeAcao ? 'ml-3 home escolhido' : 'ml-3 home'}>
+          Plano de Ação
+        </div>
       </div>
     </section>
   );

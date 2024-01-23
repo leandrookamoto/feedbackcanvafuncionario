@@ -60,6 +60,10 @@ Route::middleware([
 
     Route::get('/cadastro/{email}', [CadastroController::class, 'getCadastroByEmail']);
 
+    Route::get('/feedback/{email}', [CadastroController::class, 'getAllCadastroFeedback']);
+
+    Route::put('/feedback/{id}', [CadastroController::class, 'updatePlano']);
+
     
 
 
