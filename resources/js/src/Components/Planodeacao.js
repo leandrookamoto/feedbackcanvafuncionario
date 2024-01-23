@@ -64,6 +64,8 @@ export default function PlanoDeAcao({ usuario }) {
       console.log('Erro ao gravar', error);
     }
   }
+
+  const listaFiltrada = listaPlano.filter(item => item.ano === ano && item.mes === mes);
   
   
 
@@ -156,7 +158,7 @@ export default function PlanoDeAcao({ usuario }) {
         >
           Plano de Ação
         </li>
-        {listaPlano.map((item, index) => (
+        {listaFiltrada.map((item, index) => (
           <li
             key={index}
             class="list-group-item d-flex justify-content-between"

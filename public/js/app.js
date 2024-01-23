@@ -17123,6 +17123,9 @@ function PlanoDeAcao(_ref) {
     }));
     return _gravar.apply(this, arguments);
   }
+  var listaFiltrada = listaPlano.filter(function (item) {
+    return item.ano === ano && item.mes === mes;
+  });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
       className: "container w-100 mb-3",
@@ -17204,7 +17207,7 @@ function PlanoDeAcao(_ref) {
         },
         "aria-current": "true",
         children: "Plano de A\xE7\xE3o"
-      }), listaPlano.map(function (item, index) {
+      }), listaFiltrada.map(function (item, index) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("li", {
           "class": "list-group-item d-flex justify-content-between",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
