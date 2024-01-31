@@ -10,12 +10,11 @@ import Dialog from './Components/Dialog';
 import Feedback from './Components/Feedback';
 import Planodeacao from './Components/Planodeacao';
 
-
 export default function App() {
   //Variáveis para mudança de tela
   const [homeRender, setHomeRender] = useState(true);
   const [feedback, setFeedback] = useState(false);
-  const [planoDeAcao,setPlanoDeAcao] = useState(false);
+  const [planoDeAcao, setPlanoDeAcao] = useState(false);
 
   //Variáveis para gravação de estado
   const [usuario, setUsuario] = useState('');
@@ -30,6 +29,9 @@ export default function App() {
   const [emailUsuario, setEmailUsuario] = useState('');
   const [dadosFuncionario, setDadosFuncionario] = useState({});
   const [dados, setDados] = useState({});
+  const [dadosFeedChefe, setDadosFeedChefe] = useState([]);
+  const [avaliacaoDoChefe, setAvaliacaoDoChefe] = useState([]);
+  const [planoDoChefe, setPlanoDoChefe] = useState([]);
 
   //Variáveis que controlam a abertura dos Dialogs
   const [openCadastro, setOpenCadastro] = useState(false);
@@ -49,7 +51,7 @@ export default function App() {
   // Primeira requisição para a recuperação dos dados dos usuários ao inicializar o programa
   useEffect(() => {
     const fetchUserData = async () => {
-      let userData=[]
+      let userData = [];
       try {
         const responseUser = await axios.get('/user');
         userData = responseUser.data;
@@ -64,6 +66,33 @@ export default function App() {
         setUsuario(userData);
 
         console.log(responseUser.data.email);
+
+        const dadosFeed = await axios.get(
+          `/feedback/${responseUser.data.email}`,
+        );
+        setDadosFeedChefe(dadosFeed.data);
+        console.log('dadosFeed', dadosFeed.data);
+
+        let avaliacaoChefe = null;
+        try {
+          avaliacaoChefe = JSON.parse(dadosFeed.data.avaliacoes);
+          setAvaliacaoDoChefe(avaliacaoChefe);
+        } catch (error) {
+          console.log('Erro ao fazer o parse da avaliacaoChefe', error);
+        }
+
+        console.log('avaliacaoChefe', avaliacaoChefe);
+
+        let planoChefe = null;
+        try {
+          planoChefe = JSON.parse(dadosFeed.data.plano);
+        } catch (error) {
+          console.log('Erro ao fazer o parse do planoChefe', error);
+        }
+
+        if(planoChefe){
+          setPlanoDoChefe(planoChefe)
+        }
 
         let novoUsuario = null;
 
@@ -90,7 +119,7 @@ export default function App() {
               setor: userData.setor,
               administrador: userData.responsavel,
             };
-            console.log('useData dentro do novo', userData)
+            console.log('useData dentro do novo', userData);
             setIdFuncionario2(userData.id);
             console.log('userId', userData.id);
             setListaCadastro([novoUsuario]);
@@ -107,55 +136,6 @@ export default function App() {
 
     fetchUserData();
   }, []);
-
-  // useEffect(() => {
-
-  //       // Primeira requisição
-  //       const responseUser = axios.get('/user');
-  //       // const usuarioLogado = responseUser.data.name;
-  //       const setor = responseUser.data;
-  //       console.log(setor)
-  //       // setUsuario(usuarioLogado);
-
-  //       // Segunda requisição para obter a lista original
-  //   //     const responseListaOriginal = await axios.get('/cadastrados');
-  //   //     const listaOriginal = responseListaOriginal.data;
-  //   //     setListaCadastro(listaOriginal);
-
-  //   //     // Terceira requisição para obter a lista dos colaboradores do outro banco de dados
-  //   //     const responseColaboradoresAtestado = await axios.get('/colaboradores-atestado');
-  //   //     const listaAtestado = responseColaboradoresAtestado.data;
-
-  //   //     // Verificar se os colaboradores do segundo banco de dados já existem na lista original
-  //   //     const funcionariosNaoCadastrados = listaAtestado.filter((colaboradorAtestado) => {
-  //   //       return !listaOriginal.some((funcionario) => funcionario.nome === colaboradorAtestado.nome);
-  //   //     });
-
-  //   //     // Cadastrar os funcionários não encontrados na lista original
-  //   //     for (const item of funcionariosNaoCadastrados) {
-  //   //       try {
-  //   //         const novoUsuario = {
-  //   //           nome: item.nome,
-  //   //           email: 'cadastrar@email.com',
-  //   //           setor: item.setor,
-  //   //           administrador: 'Leandro Okamoto',
-  //   //         };
-  //   //         await axios.post('/cadastrar-usuario', novoUsuario);
-  //   //         console.log('Usuário cadastrado com sucesso:', novoUsuario);
-  //   //       } catch (error) {
-  //   //         console.error('Erro ao cadastrar usuário:', error);
-  //   //       }
-  //   //     }
-
-  //   //     // Atualizar a lista original após os cadastros
-  //   //     const updatedListaOriginal = await axios.get('/cadastrados');
-  //   //     setListaCadastro(updatedListaOriginal.data);
-  //   //   } catch (error) {
-  //   //     console.error('Erro ao buscar dados:', error);
-  //   //   }
-  //   // };
-
-  // }, []);
 
   //Funções principais
   //Função para cadastrar os funcionários
@@ -322,7 +302,12 @@ export default function App() {
         <div className="m-3" style={{ width: '70%' }}>
           {/* Aqui é a renderização da Home */}
           {homeRender && (
-            <Home usuario={usuario} listaCadastro={listaCadastro} />
+            <Home
+              usuario={usuario}
+              listaCadastro={listaCadastro}
+              planoDoChefe={planoDoChefe}
+              avaliacaoDoChefe={avaliacaoDoChefe}
+            />
           )}
 
           {/* Aqui é a renderização do componente do feedback */}

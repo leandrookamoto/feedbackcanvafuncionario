@@ -3,7 +3,12 @@ import './Home.css';
 import { useState, useEffect } from 'react';
 import Dialog from './Dialog';
 
-export default function Home({ usuario, listaCadastro }) {
+export default function Home({
+  usuario,
+  listaCadastro,
+  planoDoChefe,
+  avaliacaoDoChefe,
+}) {
   //Constante responsável pela gravação do estado das avaliações realizadas para análise de metas
   const [avaliacoesRealizadas, setAvaliacoesRealizadas] = useState([]);
 
@@ -15,7 +20,7 @@ export default function Home({ usuario, listaCadastro }) {
   const mesAtual = dataAtual.getMonth();
 
   //Constantes para gravação de estado
-  const [mes, setMes] = useState(mesAtual);
+
   const [ano, setAno] = useState(anoAtual);
   const [open, setOpen] = useState(false);
 
@@ -40,9 +45,9 @@ export default function Home({ usuario, listaCadastro }) {
     'Novembro',
     'Dezembro',
   ];
-
   // Obter o nome do mês correspondente ao índice retornado por getMonth()
   const nomeMes = meses[mes];
+  const [mes, setMes] = useState(mesAtual);
 
   const ultimosMeses = [];
   for (let i = mes; i > mes - 5; i--) {
@@ -51,21 +56,57 @@ export default function Home({ usuario, listaCadastro }) {
     }
   }
 
+  //Lógica para a formação do dashboard
+  //Lógica da senioridade
+  const avaliacaoDoChefePorMes = avaliacaoDoChefe.filter(
+    (item) => item.ano === ano && item.mes === meses[mes],
+  );
+  const senioridadeDoMes = avaliacaoDoChefePorMes.map(
+    (item) => item.senioridade,
+  )[0]
+    ? avaliacaoDoChefePorMes.map((item) => item.senioridade)[0]
+    : '';
+
+  //Lógica das atividades do mês
+  const planoDoChefePorMes = planoDoChefe.filter(
+    (item) => item.ano === ano && item.mes === meses[mes],
+  );
+  const atividadesOk = planoDoChefePorMes.filter((item) => item.feito === true);
+
+  const avaliacoesConcluidasPorMesLength = ultimosMeses.map((nomeMes) => {
+    const avaliacoesPorMes = planoDoChefe
+      .filter((item) => item.mes === nomeMes &&item.ano===ano)
+      .filter((item) => item.feito === true)
+
+      console.log('avaliacoesPorMes',avaliacoesPorMes)
+    return avaliacoesPorMes.length;
+  });
+
+  const atividadesPorMesLength = ultimosMeses.map((nomeMes) => {
+    const atividadesPorMes = planoDoChefe
+      .filter((item) => item.mes === nomeMes &&item.ano===ano)
+
+    return atividadesPorMes.flat().length;
+  });
+
+  // Exemplo de acesso aos valores
+
+
   //Data para a configuração do Chart.js
   const data = {
-    labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho'],
+    labels: ultimosMeses,
     datasets: [
       {
-        label: 'Feedbacks realizados',
-        data: [15, 20, 22, 19, 17, 23],
+        label: 'Atividades completadas',
+        data: avaliacoesConcluidasPorMesLength,
         borderColor: 'blue',
         backgroundColor: 'blue',
       },
       {
-        label: 'Metas',
+        label: 'Atividades totais',
         /*Aqui a meta é automaticamente preenchido de acordo com o número dos
         feedbacks de cima e de acordo com o número de funcionários cadastrados*/
-        data: Array(50).fill(listaCadastro.length),
+        data: atividadesPorMesLength,
         borderColor: 'red',
         backgroundColor: 'red',
       },
@@ -271,7 +312,7 @@ export default function Home({ usuario, listaCadastro }) {
             </div>
             <div style={{ width: '60%', padding: '5px' }}>
               <div>Senioridade</div>
-              <div>teste</div>
+              <div>{senioridadeDoMes}</div>
             </div>
           </div>
           <div
@@ -308,7 +349,7 @@ export default function Home({ usuario, listaCadastro }) {
             </div>
             <div style={{ width: '60%', padding: '5px' }}>
               <div>Atividades ok</div>
-              <div>teste</div>
+              <div>{atividadesOk.length}</div>
             </div>
           </div>
           <div
@@ -343,7 +384,41 @@ export default function Home({ usuario, listaCadastro }) {
             </div>
             <div style={{ width: '60%', padding: '5px' }}>
               <div>Faltam</div>
-              <div>Teste</div>
+              <div>{planoDoChefePorMes.length - atividadesOk.length}</div>
+            </div>
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              width: '100%',
+              border: '1px solid rgb(204 204 204)',
+            }}
+          >
+            <div
+              style={{
+                width: '40%',
+                backgroundColor: '#f19b2c',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: 'white',
+              }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="30"
+                height="30"
+                fill="currentColor"
+                class="bi bi-window-fullscreen"
+                viewBox="0 0 16 16"
+              >
+                <path d="M3 3.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m1.5 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m1 .5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1" />
+                <path d="M.5 1a.5.5 0 0 0-.5.5v13a.5.5 0 0 0 .5.5h15a.5.5 0 0 0 .5-.5v-13a.5.5 0 0 0-.5-.5zM1 5V2h14v3zm0 1h14v8H1z" />
+              </svg>
+            </div>
+            <div style={{ width: '60%', padding: '5px' }}>
+              <div>Total</div>
+              <div>{planoDoChefePorMes.length}</div>
             </div>
           </div>
         </div>

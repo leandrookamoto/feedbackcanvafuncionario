@@ -14789,28 +14789,40 @@ function App() {
     _useState30 = _slicedToArray(_useState29, 2),
     dados = _useState30[0],
     setDados = _useState30[1];
+  var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState32 = _slicedToArray(_useState31, 2),
+    dadosFeedChefe = _useState32[0],
+    setDadosFeedChefe = _useState32[1];
+  var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState34 = _slicedToArray(_useState33, 2),
+    avaliacaoDoChefe = _useState34[0],
+    setAvaliacaoDoChefe = _useState34[1];
+  var _useState35 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState36 = _slicedToArray(_useState35, 2),
+    planoDoChefe = _useState36[0],
+    setPlanoDoChefe = _useState36[1];
 
   //Variáveis que controlam a abertura dos Dialogs
-  var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-    _useState32 = _slicedToArray(_useState31, 2),
-    openCadastro = _useState32[0],
-    setOpenCadastro = _useState32[1];
-  var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-    _useState34 = _slicedToArray(_useState33, 2),
-    open = _useState34[0],
-    setOpen = _useState34[1];
-  var _useState35 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
-    _useState36 = _slicedToArray(_useState35, 2),
-    openEmail = _useState36[0],
-    setOpenEmail = _useState36[1];
   var _useState37 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState38 = _slicedToArray(_useState37, 2),
-    cadastroSucesso = _useState38[0],
-    setCadastroSucesso = _useState38[1];
+    openCadastro = _useState38[0],
+    setOpenCadastro = _useState38[1];
   var _useState39 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState40 = _slicedToArray(_useState39, 2),
-    edicaoSucesso = _useState40[0],
-    setEdicaoSucesso = _useState40[1];
+    open = _useState40[0],
+    setOpen = _useState40[1];
+  var _useState41 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+    _useState42 = _slicedToArray(_useState41, 2),
+    openEmail = _useState42[0],
+    setOpenEmail = _useState42[1];
+  var _useState43 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState44 = _slicedToArray(_useState43, 2),
+    cadastroSucesso = _useState44[0],
+    setCadastroSucesso = _useState44[1];
+  var _useState45 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState46 = _slicedToArray(_useState45, 2),
+    edicaoSucesso = _useState46[0],
+    setEdicaoSucesso = _useState46[1];
 
   //Variável para descrição do Dialog/Modal/Popup
   var mesmoFuncionario = 'Você já cadastrou esse funcionário!';
@@ -14824,7 +14836,7 @@ function App() {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var fetchUserData = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var userData, responseUser, responseResponsavel, novoUsuario, responseListaOriginal, listaOriginal;
+        var userData, responseUser, responseResponsavel, dadosFeed, avaliacaoChefe, planoChefe, novoUsuario, responseListaOriginal, listaOriginal;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
@@ -14845,24 +14857,47 @@ function App() {
               userData.responsavel = responseResponsavel.data;
               setUsuario(userData);
               console.log(responseUser.data.email);
+              _context.next = 15;
+              return axios.get("/feedback/".concat(responseUser.data.email));
+            case 15:
+              dadosFeed = _context.sent;
+              setDadosFeedChefe(dadosFeed.data);
+              console.log('dadosFeed', dadosFeed.data);
+              avaliacaoChefe = null;
+              try {
+                avaliacaoChefe = JSON.parse(dadosFeed.data.avaliacoes);
+                setAvaliacaoDoChefe(avaliacaoChefe);
+              } catch (error) {
+                console.log('Erro ao fazer o parse da avaliacaoChefe', error);
+              }
+              console.log('avaliacaoChefe', avaliacaoChefe);
+              planoChefe = null;
+              try {
+                planoChefe = JSON.parse(dadosFeed.data.plano);
+              } catch (error) {
+                console.log('Erro ao fazer o parse do planoChefe', error);
+              }
+              if (planoChefe) {
+                setPlanoDoChefe(planoChefe);
+              }
               novoUsuario = null;
-              _context.prev = 14;
-              _context.next = 17;
+              _context.prev = 25;
+              _context.next = 28;
               return axios.get("/cadastro/".concat(responseUser.data.email));
-            case 17:
+            case 28:
               responseListaOriginal = _context.sent;
               listaOriginal = responseListaOriginal.data;
               console.log('listaOriginal', listaOriginal);
               setListaCadastro([listaOriginal]);
               setIdFuncionario2(listaOriginal.id);
               console.log(userData);
-              _context.next = 40;
+              _context.next = 51;
               break;
-            case 25:
-              _context.prev = 25;
-              _context.t0 = _context["catch"](14);
+            case 36:
+              _context.prev = 36;
+              _context.t0 = _context["catch"](25);
               if (!(_context.t0.response && _context.t0.response.status === 404)) {
-                _context.next = 39;
+                _context.next = 50;
                 break;
               }
               console.log('Usuário não cadastrado');
@@ -14877,25 +14912,25 @@ function App() {
               setIdFuncionario2(userData.id);
               console.log('userId', userData.id);
               setListaCadastro([novoUsuario]);
-              _context.next = 37;
+              _context.next = 48;
               return axios.post('/cadastrar-usuario', novoUsuario);
-            case 37:
-              _context.next = 40;
+            case 48:
+              _context.next = 51;
               break;
-            case 39:
+            case 50:
               console.error('Erro ao buscar dados de cadastro:', _context.t0);
-            case 40:
-              _context.next = 45;
+            case 51:
+              _context.next = 56;
               break;
-            case 42:
-              _context.prev = 42;
+            case 53:
+              _context.prev = 53;
               _context.t1 = _context["catch"](1);
               console.error('Erro ao buscar dados:', _context.t1);
-            case 45:
+            case 56:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[1, 42], [14, 25]]);
+        }, _callee, null, [[1, 53], [25, 36]]);
       }));
       return function fetchUserData() {
         return _ref.apply(this, arguments);
@@ -14903,55 +14938,6 @@ function App() {
     }();
     fetchUserData();
   }, []);
-
-  // useEffect(() => {
-
-  //       // Primeira requisição
-  //       const responseUser = axios.get('/user');
-  //       // const usuarioLogado = responseUser.data.name;
-  //       const setor = responseUser.data;
-  //       console.log(setor)
-  //       // setUsuario(usuarioLogado);
-
-  //       // Segunda requisição para obter a lista original
-  //   //     const responseListaOriginal = await axios.get('/cadastrados');
-  //   //     const listaOriginal = responseListaOriginal.data;
-  //   //     setListaCadastro(listaOriginal);
-
-  //   //     // Terceira requisição para obter a lista dos colaboradores do outro banco de dados
-  //   //     const responseColaboradoresAtestado = await axios.get('/colaboradores-atestado');
-  //   //     const listaAtestado = responseColaboradoresAtestado.data;
-
-  //   //     // Verificar se os colaboradores do segundo banco de dados já existem na lista original
-  //   //     const funcionariosNaoCadastrados = listaAtestado.filter((colaboradorAtestado) => {
-  //   //       return !listaOriginal.some((funcionario) => funcionario.nome === colaboradorAtestado.nome);
-  //   //     });
-
-  //   //     // Cadastrar os funcionários não encontrados na lista original
-  //   //     for (const item of funcionariosNaoCadastrados) {
-  //   //       try {
-  //   //         const novoUsuario = {
-  //   //           nome: item.nome,
-  //   //           email: 'cadastrar@email.com',
-  //   //           setor: item.setor,
-  //   //           administrador: 'Leandro Okamoto',
-  //   //         };
-  //   //         await axios.post('/cadastrar-usuario', novoUsuario);
-  //   //         console.log('Usuário cadastrado com sucesso:', novoUsuario);
-  //   //       } catch (error) {
-  //   //         console.error('Erro ao cadastrar usuário:', error);
-  //   //       }
-  //   //     }
-
-  //   //     // Atualizar a lista original após os cadastros
-  //   //     const updatedListaOriginal = await axios.get('/cadastrados');
-  //   //     setListaCadastro(updatedListaOriginal.data);
-  //   //   } catch (error) {
-  //   //     console.error('Erro ao buscar dados:', error);
-  //   //   }
-  //   // };
-
-  // }, []);
 
   //Funções principais
   //Função para cadastrar os funcionários
@@ -15141,7 +15127,9 @@ function App() {
         },
         children: [homeRender && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Components_Home__WEBPACK_IMPORTED_MODULE_5__["default"], {
           usuario: usuario,
-          listaCadastro: listaCadastro
+          listaCadastro: listaCadastro,
+          planoDoChefe: planoDoChefe,
+          avaliacaoDoChefe: avaliacaoDoChefe
         }), feedback && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Components_Feedback__WEBPACK_IMPORTED_MODULE_7__["default"], {
           listaCadastro: listaCadastro,
           usuario: usuario,
@@ -16889,7 +16877,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function Home(_ref) {
   var usuario = _ref.usuario,
-    listaCadastro = _ref.listaCadastro;
+    listaCadastro = _ref.listaCadastro,
+    planoDoChefe = _ref.planoDoChefe,
+    avaliacaoDoChefe = _ref.avaliacaoDoChefe;
   //Constante responsável pela gravação do estado das avaliações realizadas para análise de metas
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
     _useState2 = _slicedToArray(_useState, 2),
@@ -16904,42 +16894,42 @@ function Home(_ref) {
   var mesAtual = dataAtual.getMonth();
 
   //Constantes para gravação de estado
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(mesAtual),
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(anoAtual),
     _useState4 = _slicedToArray(_useState3, 2),
-    mes = _useState4[0],
-    setMes = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(anoAtual),
+    ano = _useState4[0],
+    setAno = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
     _useState6 = _slicedToArray(_useState5, 2),
-    ano = _useState6[0],
-    setAno = _useState6[1];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
-    _useState8 = _slicedToArray(_useState7, 2),
-    open = _useState8[0],
-    setOpen = _useState8[1];
+    open = _useState6[0],
+    setOpen = _useState6[1];
 
   //COnstante para adicionar a observação
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
+    _useState8 = _slicedToArray(_useState7, 2),
+    observacao = _useState8[0],
+    setObservacao = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(''),
     _useState10 = _slicedToArray(_useState9, 2),
-    observacao = _useState10[0],
-    setObservacao = _useState10[1];
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(''),
+    valueObservacao = _useState10[0],
+    setValueObservacao = _useState10[1];
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
     _useState12 = _slicedToArray(_useState11, 2),
-    valueObservacao = _useState12[0],
-    setValueObservacao = _useState12[1];
+    listaObservacao = _useState12[0],
+    setListaObservacao = _useState12[1];
   var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
     _useState14 = _slicedToArray(_useState13, 2),
-    listaObservacao = _useState14[0],
-    setListaObservacao = _useState14[1];
-  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
-    _useState16 = _slicedToArray(_useState15, 2),
-    renderObservacao = _useState16[0],
-    setRenderObservacao = _useState16[1];
+    renderObservacao = _useState14[0],
+    setRenderObservacao = _useState14[1];
 
   // Lista de nomes dos meses
   var meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
-
   // Obter o nome do mês correspondente ao índice retornado por getMonth()
   var nomeMes = meses[mes];
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(mesAtual),
+    _useState16 = _slicedToArray(_useState15, 2),
+    mes = _useState16[0],
+    setMes = _useState16[1];
   var ultimosMeses = [];
   for (var i = mes; i > mes - 5; i--) {
     if (i >= 0) {
@@ -16947,19 +16937,55 @@ function Home(_ref) {
     }
   }
 
+  //Lógica para a formação do dashboard
+  //Lógica da senioridade
+  var avaliacaoDoChefePorMes = avaliacaoDoChefe.filter(function (item) {
+    return item.ano === ano && item.mes === meses[mes];
+  });
+  var senioridadeDoMes = avaliacaoDoChefePorMes.map(function (item) {
+    return item.senioridade;
+  })[0] ? avaliacaoDoChefePorMes.map(function (item) {
+    return item.senioridade;
+  })[0] : '';
+
+  //Lógica das atividades do mês
+  var planoDoChefePorMes = planoDoChefe.filter(function (item) {
+    return item.ano === ano && item.mes === meses[mes];
+  });
+  var atividadesOk = planoDoChefePorMes.filter(function (item) {
+    return item.feito === true;
+  });
+  var avaliacoesConcluidasPorMesLength = ultimosMeses.map(function (nomeMes) {
+    var avaliacoesPorMes = planoDoChefe.filter(function (item) {
+      return item.mes === nomeMes && item.ano === ano;
+    }).filter(function (item) {
+      return item.feito === true;
+    });
+    console.log('avaliacoesPorMes', avaliacoesPorMes);
+    return avaliacoesPorMes.length;
+  });
+  var atividadesPorMesLength = ultimosMeses.map(function (nomeMes) {
+    var atividadesPorMes = planoDoChefe.filter(function (item) {
+      return item.mes === nomeMes && item.ano === ano;
+    });
+    return atividadesPorMes.flat().length;
+  });
+
+  // Exemplo de acesso aos valores
+
   //Data para a configuração do Chart.js
   var data = {
-    labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho'],
+    labels: ultimosMeses,
     datasets: [{
-      label: 'Feedbacks realizados',
-      data: [15, 20, 22, 19, 17, 23],
+      label: 'Atividades completadas',
+      data: avaliacoesConcluidasPorMesLength,
       borderColor: 'blue',
       backgroundColor: 'blue'
     }, {
-      label: 'Metas',
+      label: 'Atividades totais',
       /*Aqui a meta é automaticamente preenchido de acordo com o número dos
       feedbacks de cima e de acordo com o número de funcionários cadastrados*/
-      data: Array(50).fill(listaCadastro.length),
+      data: atividadesPorMesLength,
       borderColor: 'red',
       backgroundColor: 'red'
     }]
@@ -17186,7 +17212,7 @@ function Home(_ref) {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
               children: "Senioridade"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-              children: "teste"
+              children: senioridadeDoMes
             })]
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
@@ -17225,7 +17251,7 @@ function Home(_ref) {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
               children: "Atividades ok"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-              children: "teste"
+              children: atividadesOk.length
             })]
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
@@ -17265,7 +17291,46 @@ function Home(_ref) {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
               children: "Faltam"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-              children: "Teste"
+              children: planoDoChefePorMes.length - atividadesOk.length
+            })]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          style: {
+            display: 'flex',
+            width: '100%',
+            border: '1px solid rgb(204 204 204)'
+          },
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            style: {
+              width: '40%',
+              backgroundColor: '#f19b2c',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'white'
+            },
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("svg", {
+              xmlns: "http://www.w3.org/2000/svg",
+              width: "30",
+              height: "30",
+              fill: "currentColor",
+              "class": "bi bi-window-fullscreen",
+              viewBox: "0 0 16 16",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("path", {
+                d: "M3 3.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m1.5 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m1 .5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("path", {
+                d: "M.5 1a.5.5 0 0 0-.5.5v13a.5.5 0 0 0 .5.5h15a.5.5 0 0 0 .5-.5v-13a.5.5 0 0 0-.5-.5zM1 5V2h14v3zm0 1h14v8H1z"
+              })]
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            style: {
+              width: '60%',
+              padding: '5px'
+            },
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              children: "Total"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              children: planoDoChefePorMes.length
             })]
           })]
         })]
