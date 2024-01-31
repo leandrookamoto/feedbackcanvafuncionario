@@ -14,6 +14,8 @@ export default function AlertDialog({
   button = 'Fechar',
   button2,
   handleButton,
+  onChangeObservacao
+  
 }) {
   return (
     <div>

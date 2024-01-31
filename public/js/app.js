@@ -16462,7 +16462,8 @@ function AlertDialog(_ref) {
     _ref$button = _ref.button,
     button = _ref$button === void 0 ? 'Fechar' : _ref$button,
     button2 = _ref.button2,
-    handleButton = _ref.handleButton;
+    handleButton = _ref.handleButton,
+    onChangeObservacao = _ref.onChangeObservacao;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_mui_material_Dialog__WEBPACK_IMPORTED_MODULE_1__["default"], {
       open: open,
@@ -16863,13 +16864,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Home_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Home.css */ "./resources/js/src/Components/Home.css");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _Dialog__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Dialog */ "./resources/js/src/Components/Dialog.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw new Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw new Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -16884,6 +16895,58 @@ function Home(_ref) {
     _useState2 = _slicedToArray(_useState, 2),
     avaliacoesRealizadas = _useState2[0],
     setAvaliacoesRealizadas = _useState2[1];
+
+  //Constantes para conseguir o ano atual
+  var dataAtual = new Date();
+  var anoAtual = dataAtual.getFullYear();
+  //Constante responsável pela gravação do estado das avaliações realizadas para análise de metas
+  // Obter o mês atual (retornado como um número, onde janeiro é 0 e dezembro é 11)
+  var mesAtual = dataAtual.getMonth();
+
+  //Constantes para gravação de estado
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(mesAtual),
+    _useState4 = _slicedToArray(_useState3, 2),
+    mes = _useState4[0],
+    setMes = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(anoAtual),
+    _useState6 = _slicedToArray(_useState5, 2),
+    ano = _useState6[0],
+    setAno = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
+    _useState8 = _slicedToArray(_useState7, 2),
+    open = _useState8[0],
+    setOpen = _useState8[1];
+
+  //COnstante para adicionar a observação
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
+    _useState10 = _slicedToArray(_useState9, 2),
+    observacao = _useState10[0],
+    setObservacao = _useState10[1];
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(''),
+    _useState12 = _slicedToArray(_useState11, 2),
+    valueObservacao = _useState12[0],
+    setValueObservacao = _useState12[1];
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
+    _useState14 = _slicedToArray(_useState13, 2),
+    listaObservacao = _useState14[0],
+    setListaObservacao = _useState14[1];
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
+    _useState16 = _slicedToArray(_useState15, 2),
+    renderObservacao = _useState16[0],
+    setRenderObservacao = _useState16[1];
+
+  // Lista de nomes dos meses
+  var meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+
+  // Obter o nome do mês correspondente ao índice retornado por getMonth()
+  var nomeMes = meses[mes];
+  var ultimosMeses = [];
+  for (var i = mes; i > mes - 5; i--) {
+    if (i >= 0) {
+      ultimosMeses.unshift(meses[i]);
+    }
+  }
+
   //Data para a configuração do Chart.js
   var data = {
     labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho'],
@@ -16902,34 +16965,335 @@ function Home(_ref) {
     }]
   };
 
-  //useEffect responsável pela retirada das informações do banco de dados através do props listaCadastro
-  // useEffect(() => {
-  //   const lista = listaCadastro.map((item) => item.avaliacoes);
-  //   let novaLista = lista.filter((item) => Array.isArray(JSON.parse(item)));
+  //Funções principais
+  function handleMeses(e) {
+    setMes(e.currentTarget.value);
+  }
+  function handleAdicionar() {
+    setOpen(true);
+    setObservacao(true);
+  }
+  function editar() {
+    setRenderObservacao([]);
+  }
+  function onChangeObservacao(e) {
+    var novaObservacao = e.target.value;
 
-  //   let arrayDeObjetos = [];
-
-  //   for (let i = 0; i < novaLista.length; i++) {
-  //     const item = novaLista[i];
-  //     // Adiciona cada item (array) como um objeto ao arrayDeObjetos
-  //     //Aqui faz o parse, pois os dados vem como JSON.stringfy do banco de dados
-  //     arrayDeObjetos.push(JSON.parse(item));
-
-  //     //gravação do local
-  //     setAvaliacoesRealizadas(arrayDeObjetos);
-  //   }
-  // }, []);
-
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("section", {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h3", {
+    // Verifica se o comprimento da observação atingiu 500 caracteres
+    if (novaObservacao.length <= 500) {
+      setValueObservacao(novaObservacao);
+    }
+  }
+  function gravarObservacao() {
+    return _gravarObservacao.apply(this, arguments);
+  }
+  function _gravarObservacao() {
+    _gravarObservacao = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      var observacaoExistente, novaLista;
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) switch (_context.prev = _context.next) {
+          case 0:
+            _context.prev = 0;
+            observacaoExistente = listaObservacao.find(function (item) {
+              return item.mes === nomeMes && item.ano === ano;
+            });
+            setOpen(false);
+            if (!observacaoExistente) {
+              _context.next = 11;
+              break;
+            }
+            // Substituir o objeto existente
+            novaLista = listaObservacao.map(function (item) {
+              return item.mes === nomeMes && item.ano === ano ? {
+                observacao: valueObservacao,
+                mes: nomeMes,
+                ano: ano
+              } : item;
+            });
+            _context.next = 7;
+            return axios.put("/cadastro/".concat(idUsuario, "/update-observacao"), {
+              observacao: novaLista
+            });
+          case 7:
+            setObservacao(false);
+            setListaObservacao(novaLista);
+            _context.next = 15;
+            break;
+          case 11:
+            _context.next = 13;
+            return axios.put("/cadastro/".concat(idUsuario, "/update-observacao"), {
+              observacao: [].concat(_toConsumableArray(listaObservacao), [{
+                observacao: valueObservacao,
+                mes: nomeMes,
+                ano: ano
+              }])
+            });
+          case 13:
+            setObservacao(false);
+            setListaObservacao([].concat(_toConsumableArray(listaObservacao), [{
+              observacao: valueObservacao,
+              mes: nomeMes,
+              ano: ano
+            }]));
+          case 15:
+            _context.next = 20;
+            break;
+          case 17:
+            _context.prev = 17;
+            _context.t0 = _context["catch"](0);
+            console.error('Erro ao gravar observação:', _context.t0);
+          case 20:
+            setRenderObservacao([{
+              observacao: valueObservacao,
+              mes: nomeMes,
+              ano: ano
+            }]);
+          case 21:
+          case "end":
+            return _context.stop();
+        }
+      }, _callee, null, [[0, 17]]);
+    }));
+    return _gravarObservacao.apply(this, arguments);
+  }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("section", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h3", {
         children: ["Ol\xE1, ", usuario.name, "!"]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h3", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h3", {
         children: ["Gestor Direto: ", usuario.responsavel, "!"]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Chart__WEBPACK_IMPORTED_MODULE_0__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        className: "container w-100 mb-3",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h5", {
+          children: "Escolha a data"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "container text-center",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            className: "row align-items-start mb-1",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              className: anoAtual - 2 === ano ? 'col border p-1 bg-dark text-white' : 'col border p-1',
+              style: {
+                cursor: 'pointer'
+              },
+              onClick: function onClick() {
+                return setAno(anoAtual - 2);
+              },
+              children: anoAtual - 2
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              className: anoAtual - 1 === ano ? 'col border p-1 bg-dark text-white' : 'col border p-1',
+              style: {
+                cursor: 'pointer'
+              },
+              onClick: function onClick() {
+                return setAno(anoAtual - 1);
+              },
+              children: anoAtual - 1
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              className: anoAtual === ano ? 'col border p-1 bg-dark text-white' : 'col border p-1',
+              style: {
+                cursor: 'pointer'
+              },
+              onClick: function onClick() {
+                return setAno(anoAtual);
+              },
+              children: anoAtual
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              className: anoAtual + 1 === ano ? 'col border p-1 bg-dark text-white' : 'col border p-1',
+              style: {
+                cursor: 'pointer'
+              },
+              onClick: function onClick() {
+                return setAno(anoAtual + 1);
+              },
+              children: anoAtual + 1
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              className: anoAtual + 2 === ano ? 'col border p-1 bg-dark text-white' : 'col border p-1',
+              style: {
+                cursor: 'pointer'
+              },
+              onClick: function onClick() {
+                return setAno(anoAtual + 2);
+              },
+              children: anoAtual + 2
+            })]
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
+          className: "form-select mb-2",
+          "aria-label": "Default select example",
+          onChange: handleMeses,
+          value: mes,
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+            selected: true,
+            children: "Escolha a data"
+          }), meses.map(function (item, index) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                value: index,
+                children: item
+              }, index)
+            });
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+        type: "button",
+        className: "btn btn-primary mb-1",
+        onClick: handleAdicionar,
+        children: renderObservacao.length == 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
+          children: "Adicionar observa\xE7\xF5es"
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
+          children: "Ver observa\xE7\xF5es"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h5", {
+        children: ["N\xFAmeros do m\xEAs: ", nomeMes]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        style: {
+          width: '100%',
+          height: '80px',
+          display: 'flex'
+        },
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          style: {
+            display: 'flex',
+            width: '100%',
+            marginRight: '10px',
+            border: '1px solid rgb(204 204 204)'
+          },
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            style: {
+              width: '40%',
+              backgroundColor: '#1fc1ed',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'white'
+            },
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("svg", {
+              xmlns: "http://www.w3.org/2000/svg",
+              width: "30",
+              height: "30",
+              fill: "currentColor",
+              "class": "bi bi-briefcase",
+              viewBox: "0 0 16 16",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("path", {
+                d: "M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5m1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0M1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5"
+              })
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            style: {
+              width: '60%',
+              padding: '5px'
+            },
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              children: "Senioridade"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              children: "teste"
+            })]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          style: {
+            display: 'flex',
+            width: '100%',
+            marginRight: '10px',
+            border: '1px solid rgb(204 204 204)'
+          },
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            style: {
+              width: '40%',
+              backgroundColor: '#db4c3f',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'white'
+            },
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("svg", {
+              xmlns: "http://www.w3.org/2000/svg",
+              width: "30",
+              height: "30",
+              fill: "currentColor",
+              "class": "bi bi-list-check",
+              viewBox: "0 0 16 16",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("path", {
+                "fill-rule": "evenodd",
+                d: "M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3.854 2.146a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 3.293l1.146-1.147a.5.5 0 0 1 .708 0m0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 7.293l1.146-1.147a.5.5 0 0 1 .708 0m0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0"
+              })
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            style: {
+              width: '60%',
+              padding: '5px'
+            },
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              children: "Atividades ok"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              children: "teste"
+            })]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          style: {
+            display: 'flex',
+            width: '100%',
+            marginRight: '10px',
+            border: '1px solid rgb(204 204 204)'
+          },
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            style: {
+              width: '40%',
+              backgroundColor: '#18a55d',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'white'
+            },
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("svg", {
+              xmlns: "http://www.w3.org/2000/svg",
+              width: "30",
+              height: "30",
+              fill: "currentColor",
+              className: "bi bi-dash-circle",
+              viewBox: "0 0 16 16",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("path", {
+                d: "M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("path", {
+                d: "M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"
+              })]
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            style: {
+              width: '60%',
+              padding: '5px'
+            },
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              children: "Faltam"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              children: "Teste"
+            })]
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h5", {
+        className: "mt-3",
+        children: ["Gr\xE1fico das metas mensais do ano de ", ano]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Chart__WEBPACK_IMPORTED_MODULE_0__["default"], {
         data: data
       })]
-    })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Dialog__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      open: open
+      // descricao={descricao}
+      ,
+      button: renderObservacao.length == 0 ? '' : 'Editar',
+      handleClose: editar //Coloquei no handleClose para não modificar muito o código
+      ,
+      Title: "Aten\xE7\xE3o",
+      observacao: observacao,
+      onChangeObservacao: onChangeObservacao,
+      valueObservacao: valueObservacao,
+      gravarObservacao: gravarObservacao,
+      renderObservacao: renderObservacao,
+      titulo: renderObservacao.length == 0 ? 'Observações' : "Observa\xE7\xF5es ".concat(nomeMes, " ").concat(ano),
+      button2: "Fechar",
+      handleButton: function handleButton() {
+        return setOpen(false);
+      }
+    })]
   });
 }
 
@@ -17066,21 +17430,25 @@ function PlanoDeAcao(_ref) {
   };
   var handleCheckboxChange = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(index) {
-      var novaListaPlano;
+      var lista, newIndex, novaListaPlano;
       return _regeneratorRuntime().wrap(function _callee2$(_context2) {
         while (1) switch (_context2.prev = _context2.next) {
           case 0:
+            lista = listaFiltrada[index];
+            newIndex = listaPlano.findIndex(function (item) {
+              return item.mes == mes && item.ano == ano && item.plano == lista.plano;
+            });
             novaListaPlano = listaPlano.map(function (item, i) {
-              return i === index ? _objectSpread(_objectSpread({}, item), {}, {
+              return i === newIndex ? _objectSpread(_objectSpread({}, item), {}, {
                 feito: !item.feito
               }) : item;
             });
             setListaPlano(novaListaPlano);
 
             // Chamar a função gravar diretamente com a lista atualizada
-            _context2.next = 4;
+            _context2.next = 6;
             return gravar(novaListaPlano);
-          case 4:
+          case 6:
           case "end":
             return _context2.stop();
         }
@@ -17200,16 +17568,25 @@ function PlanoDeAcao(_ref) {
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("ul", {
       "class": "list-group",
+      style: {
+        border: 'none'
+      },
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
         "class": "list-group-item text-white",
         style: {
-          backgroundColor: '#2297aa'
+          backgroundColor: '#2297aa',
+          border: 'none'
         },
         "aria-current": "true",
         children: "Plano de A\xE7\xE3o"
       }), listaFiltrada.map(function (item, index) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("li", {
           "class": "list-group-item d-flex justify-content-between",
+          style: {
+            border: 'none',
+            borderBottom: '1px solid darkgray',
+            borderRadius: '0px'
+          },
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
             children: item.plano
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {

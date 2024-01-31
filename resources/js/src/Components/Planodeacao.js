@@ -41,35 +41,38 @@ export default function PlanoDeAcao({ usuario }) {
   };
 
   const handleCheckboxChange = async (index) => {
+    const lista = listaFiltrada[index];
+    const newIndex = listaPlano.findIndex(
+      (item) => item.mes == mes && item.ano == ano && item.plano == lista.plano,
+    );
+
     const novaListaPlano = listaPlano.map((item, i) =>
-      i === index ? { ...item, feito: !item.feito } : item
+      i === newIndex ? { ...item, feito: !item.feito } : item,
     );
     setListaPlano(novaListaPlano);
-  
+
     // Chamar a função gravar diretamente com a lista atualizada
     await gravar(novaListaPlano);
   };
-  
+
   async function gravar(listaAtualizada) {
     try {
       console.log('id', idFuncionario);
       console.log('listaAtualizada', listaAtualizada);
-  
+
       const response = await axios.put(`/feedback/${idFuncionario}`, {
         plano: JSON.stringify(listaAtualizada),
       });
-  
+
       console.log('Resposta do servidor:', response.data);
     } catch (error) {
       console.log('Erro ao gravar', error);
     }
   }
 
-  const listaFiltrada = listaPlano.filter(item => item.ano === ano && item.mes === mes);
-  
-  
-
-
+  const listaFiltrada = listaPlano.filter(
+    (item) => item.ano === ano && item.mes === mes,
+  );
 
   return (
     <>
@@ -150,10 +153,10 @@ export default function PlanoDeAcao({ usuario }) {
         </select>
       </div>
 
-      <ul class="list-group">
+      <ul class="list-group" style={{ border: 'none' }}>
         <li
           class="list-group-item text-white"
-          style={{ backgroundColor: '#2297aa' }}
+          style={{ backgroundColor: '#2297aa', border: 'none' }}
           aria-current="true"
         >
           Plano de Ação
@@ -162,6 +165,11 @@ export default function PlanoDeAcao({ usuario }) {
           <li
             key={index}
             class="list-group-item d-flex justify-content-between"
+            style={{
+              border: 'none',
+              borderBottom: '1px solid darkgray',
+              borderRadius: '0px',
+            }}
           >
             <div>{item.plano}</div>
             <div class="form-check">
