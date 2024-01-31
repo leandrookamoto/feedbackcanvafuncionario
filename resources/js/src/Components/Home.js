@@ -5,9 +5,6 @@ import Dialog from './Dialog';
 
 export default function Home({
   usuario,
-  listaCadastro,
-  planoDoChefe,
-  avaliacaoDoChefe,
 }) {
   //Constante responsável pela gravação do estado das avaliações realizadas para análise de metas
   const [avaliacoesRealizadas, setAvaliacoesRealizadas] = useState([]);
@@ -20,7 +17,8 @@ export default function Home({
   const mesAtual = dataAtual.getMonth();
 
   //Constantes para gravação de estado
-
+  const [planoDoChefe,setPlanoDoChefe] = useState([]);
+  const [avaliacaoDoChefe, setAvaliacaoDoChefe] = useState([]);
   const [ano, setAno] = useState(anoAtual);
   const [open, setOpen] = useState(false);
 
@@ -89,7 +87,58 @@ export default function Home({
     return atividadesPorMes.flat().length;
   });
 
-  // Exemplo de acesso aos valores
+  useEffect(() => {
+    const fetchUserData = async () => {
+      let userData = [];
+      try {
+        const responseUser = await axios.get('/user');
+        userData = responseUser.data;
+        console.log(userData.setor);
+
+        const responseResponsavel = await axios.get(
+          `/responsavel/${userData.setor}`,
+        );
+        userData.responsavel = responseResponsavel.data;
+
+        console.log(responseUser.data.email);
+
+        const dadosFeed = await axios.get(
+          `/feedback/${responseUser.data.email}`,
+        );
+
+        console.log('dadosFeed', dadosFeed.data);
+
+        let avaliacaoChefe = null;
+        try {
+          avaliacaoChefe = JSON.parse(dadosFeed.data.avaliacoes);
+          setAvaliacaoDoChefe(avaliacaoChefe);
+        } catch (error) {
+          console.log('Erro ao fazer o parse da avaliacaoChefe', error);
+        }
+
+        console.log('avaliacaoChefe', avaliacaoChefe);
+
+        let planoChefe = null;
+        try {
+          planoChefe = JSON.parse(dadosFeed.data.plano);
+        } catch (error) {
+          console.log('Erro ao fazer o parse do planoChefe', error);
+        }
+
+        if(planoChefe){
+          setPlanoDoChefe(planoChefe)
+        }
+
+        let novoUsuario = null;
+
+        
+      } catch (error) {
+        console.error('Erro ao buscar dados:', error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
 
   //Data para a configuração do Chart.js
