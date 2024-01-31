@@ -1,11 +1,7 @@
 import { useState, useEffect } from 'react';
 
 export default function PlanoDeAcao({ usuario }) {
-  const [mes, setMes] = useState('');
-  const anoAtual = new Date().getFullYear();
-  const [ano, setAno] = useState(anoAtual);
-  const [listaPlano, setListaPlano] = useState([]);
-  const [idFuncionario, setIdFuncionario] = useState(null);
+  const mesAtual = new Date().getMonth();
   const data = [
     'Janeiro',
     'Fevereiro',
@@ -20,6 +16,13 @@ export default function PlanoDeAcao({ usuario }) {
     'Novembro',
     'Dezembro',
   ];
+
+  const nomeMes = data[mesAtual];
+  const [mes, setMes] = useState(nomeMes);
+  const anoAtual = new Date().getFullYear();
+  const [ano, setAno] = useState(anoAtual);
+  const [listaPlano, setListaPlano] = useState([]);
+  const [idFuncionario, setIdFuncionario] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -73,6 +76,9 @@ export default function PlanoDeAcao({ usuario }) {
   const listaFiltrada = listaPlano.filter(
     (item) => item.ano === ano && item.mes === mes,
   );
+
+  console.log('ano',ano)
+  console.log('mes',mes)
 
   return (
     <>
@@ -141,6 +147,7 @@ export default function PlanoDeAcao({ usuario }) {
           className="form-select mb-2"
           aria-label="Default select example"
           onChange={handleData}
+          value={mes}
         >
           <option selected>Escolha a data</option>
           {data.map((item, index) => (

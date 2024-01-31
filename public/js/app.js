@@ -17373,7 +17373,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function PlanoDeAcao(_ref) {
   var usuario = _ref.usuario;
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+  var mesAtual = new Date().getMonth();
+  var data = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+  var nomeMes = data[mesAtual];
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(nomeMes),
     _useState2 = _slicedToArray(_useState, 2),
     mes = _useState2[0],
     setMes = _useState2[1];
@@ -17390,7 +17393,6 @@ function PlanoDeAcao(_ref) {
     _useState8 = _slicedToArray(_useState7, 2),
     idFuncionario = _useState8[0],
     setIdFuncionario = _useState8[1];
-  var data = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     function fetchData() {
       return _fetchData.apply(this, arguments);
@@ -17494,6 +17496,8 @@ function PlanoDeAcao(_ref) {
   var listaFiltrada = listaPlano.filter(function (item) {
     return item.ano === ano && item.mes === mes;
   });
+  console.log('ano', ano);
+  console.log('mes', mes);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
       className: "container w-100 mb-3",
@@ -17554,6 +17558,7 @@ function PlanoDeAcao(_ref) {
         className: "form-select mb-2",
         "aria-label": "Default select example",
         onChange: handleData,
+        value: mes,
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
           selected: true,
           children: "Escolha a data"
