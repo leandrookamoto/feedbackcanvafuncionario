@@ -161,13 +161,20 @@ export default function PlanoDeAcao({ usuario }) {
       </div>
 
       <ul class="list-group" style={{ border: 'none' }}>
-        <li
+        {listaFiltrada.length>0&&<li
           class="list-group-item text-white"
           style={{ backgroundColor: '#2297aa', border: 'none' }}
           aria-current="true"
         >
           Plano de Ação
-        </li>
+        </li>}
+        {listaFiltrada.length==0&&<li
+          class="list-group-item text-white"
+          style={{ backgroundColor: '#2297aa', border: 'none' }}
+          aria-current="true"
+        >
+          Nenhum plano configurado pelo seu gestor no mês selecionado.
+        </li>}
         {listaFiltrada.map((item, index) => (
           <li
             key={index}

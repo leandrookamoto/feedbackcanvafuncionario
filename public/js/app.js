@@ -17705,7 +17705,7 @@ function PlanoDeAcao(_ref) {
       style: {
         border: 'none'
       },
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
+      children: [listaFiltrada.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
         "class": "list-group-item text-white",
         style: {
           backgroundColor: '#2297aa',
@@ -17713,6 +17713,14 @@ function PlanoDeAcao(_ref) {
         },
         "aria-current": "true",
         children: "Plano de A\xE7\xE3o"
+      }), listaFiltrada.length == 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
+        "class": "list-group-item text-white",
+        style: {
+          backgroundColor: '#2297aa',
+          border: 'none'
+        },
+        "aria-current": "true",
+        children: "Nenhum plano configurado pelo seu gestor no m\xEAs selecionado."
       }), listaFiltrada.map(function (item, index) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("li", {
           "class": "list-group-item d-flex justify-content-between",
