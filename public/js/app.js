@@ -14841,26 +14841,33 @@ function App() {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               userData = [];
-              _context.prev = 1;
-              _context.next = 4;
+              responseUser = [];
+              _context.prev = 2;
+              _context.next = 5;
               return axios.get('/user');
-            case 4:
+            case 5:
               responseUser = _context.sent;
               userData = responseUser.data;
               console.log(userData.setor);
-
-              // ... (código para adicionar o administrador)
-              _context.next = 9;
+              _context.next = 10;
               return axios.get("/responsavel/".concat(userData.setor));
-            case 9:
+            case 10:
               responseResponsavel = _context.sent;
               userData.responsavel = responseResponsavel.data;
               setUsuario(userData);
               console.log(responseUser.data.email);
-              _context.next = 15;
+              dadosFeed = [];
+              _context.prev = 15;
+              _context.next = 18;
               return axios.get("/feedback/".concat(responseUser.data.email));
-            case 15:
+            case 18:
               dadosFeed = _context.sent;
+              _context.next = 23;
+              break;
+            case 21:
+              _context.prev = 21;
+              _context.t0 = _context["catch"](15);
+            case 23:
               setDadosFeedChefe(dadosFeed.data);
               console.log('dadosFeed', dadosFeed.data);
               avaliacaoChefe = null;
@@ -14881,23 +14888,23 @@ function App() {
                 setPlanoDoChefe(planoChefe);
               }
               novoUsuario = null;
-              _context.prev = 25;
-              _context.next = 28;
-              return axios.get("/cadastro/".concat(responseUser.data.email));
-            case 28:
+              _context.prev = 32;
+              _context.next = 35;
+              return axios.get("/cadastro/".concat(userData.email));
+            case 35:
               responseListaOriginal = _context.sent;
               listaOriginal = responseListaOriginal.data;
               console.log('listaOriginal', listaOriginal);
               setListaCadastro([listaOriginal]);
               setIdFuncionario2(listaOriginal.id);
               console.log(userData);
-              _context.next = 51;
+              _context.next = 58;
               break;
-            case 36:
-              _context.prev = 36;
-              _context.t0 = _context["catch"](25);
-              if (!(_context.t0.response && _context.t0.response.status === 404)) {
-                _context.next = 50;
+            case 43:
+              _context.prev = 43;
+              _context.t1 = _context["catch"](32);
+              if (!(_context.t1.response && _context.t1.response.status === 404)) {
+                _context.next = 57;
                 break;
               }
               console.log('Usuário não cadastrado');
@@ -14912,25 +14919,25 @@ function App() {
               setIdFuncionario2(userData.id);
               console.log('userId', userData.id);
               setListaCadastro([novoUsuario]);
-              _context.next = 48;
+              _context.next = 55;
               return axios.post('/cadastrar-usuario', novoUsuario);
-            case 48:
-              _context.next = 51;
+            case 55:
+              _context.next = 58;
               break;
-            case 50:
-              console.error('Erro ao buscar dados de cadastro:', _context.t0);
-            case 51:
-              _context.next = 56;
+            case 57:
+              console.error('Erro ao buscar dados de cadastro:', _context.t1);
+            case 58:
+              _context.next = 63;
               break;
-            case 53:
-              _context.prev = 53;
-              _context.t1 = _context["catch"](1);
-              console.error('Erro ao buscar dados:', _context.t1);
-            case 56:
+            case 60:
+              _context.prev = 60;
+              _context.t2 = _context["catch"](2);
+              console.error('Erro ao buscar dados:', _context.t2);
+            case 63:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[1, 53], [25, 36]]);
+        }, _callee, null, [[2, 60], [15, 21], [32, 43]]);
       }));
       return function fetchUserData() {
         return _ref.apply(this, arguments);

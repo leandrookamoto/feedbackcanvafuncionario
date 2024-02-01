@@ -52,12 +52,12 @@ export default function App() {
   useEffect(() => {
     const fetchUserData = async () => {
       let userData = [];
+      let responseUser = []
       try {
-        const responseUser = await axios.get('/user');
+        responseUser = await axios.get('/user');
         userData = responseUser.data;
         console.log(userData.setor);
 
-        // ... (código para adicionar o administrador)
 
         const responseResponsavel = await axios.get(
           `/responsavel/${userData.setor}`,
@@ -66,10 +66,14 @@ export default function App() {
         setUsuario(userData);
 
         console.log(responseUser.data.email);
-
-        const dadosFeed = await axios.get(
+        let dadosFeed = []
+        try{
+        dadosFeed = await axios.get(
           `/feedback/${responseUser.data.email}`,
         );
+        }catch{
+
+        }
         setDadosFeedChefe(dadosFeed.data);
         console.log('dadosFeed', dadosFeed.data);
 
@@ -99,7 +103,7 @@ export default function App() {
         try {
           // Tentativa de obter os dados do usuário cadastrado
           const responseListaOriginal = await axios.get(
-            `/cadastro/${responseUser.data.email}`,
+            `/cadastro/${userData.email}`,
           );
           const listaOriginal = responseListaOriginal.data;
           console.log('listaOriginal', listaOriginal);
