@@ -16,7 +16,7 @@ export default function App() {
   const [feedback, setFeedback] = useState(false);
   const [planoDeAcao, setPlanoDeAcao] = useState(false);
 
-  //Variáveis para gravação de estado
+   //Variáveis para gravação de estado
   const [usuario, setUsuario] = useState('');
   const [listaAtestado, setListaAtestado] = useState([]);
   const [nome, setNome] = useState('');
@@ -47,6 +47,7 @@ export default function App() {
   const sucessoCadastro = 'Cadastro realizado com sucesso!';
   const sucessoEdicao = 'Edição realizada com sucesso!';
 
+
   //UseEffects
   // Primeira requisição para a recuperação dos dados dos usuários ao inicializar o programa
   useEffect(() => {
@@ -56,7 +57,6 @@ export default function App() {
       try {
         responseUser = await axios.get('/user');
         userData = responseUser.data;
-        console.log(userData.setor);
 
 
         const responseResponsavel = await axios.get(
@@ -65,7 +65,6 @@ export default function App() {
         userData.responsavel = responseResponsavel.data;
         setUsuario(userData);
 
-        console.log(responseUser.data.email);
         let dadosFeed = []
         try{
         dadosFeed = await axios.get(
@@ -75,7 +74,6 @@ export default function App() {
 
         }
         setDadosFeedChefe(dadosFeed.data);
-        console.log('dadosFeed', dadosFeed.data);
 
         let avaliacaoChefe = null;
         try {
@@ -84,8 +82,6 @@ export default function App() {
         } catch (error) {
           console.log('Erro ao fazer o parse da avaliacaoChefe', error);
         }
-
-        console.log('avaliacaoChefe', avaliacaoChefe);
 
         let planoChefe = null;
         try {
@@ -106,16 +102,12 @@ export default function App() {
             `/cadastro/${userData.email}`,
           );
           const listaOriginal = responseListaOriginal.data;
-          console.log('listaOriginal', listaOriginal);
           setListaCadastro([listaOriginal]);
           setIdFuncionario2(listaOriginal.id);
-
-          console.log(userData);
         } catch (error) {
           // Se a requisição retornar erro 404, significa que o usuário não está cadastrado
           if (error.response && error.response.status === 404) {
             console.log('Usuário não cadastrado');
-            console.log(userData.name);
 
             novoUsuario = {
               nome: userData.name,
@@ -123,9 +115,7 @@ export default function App() {
               setor: userData.setor,
               administrador: userData.responsavel,
             };
-            console.log('useData dentro do novo', userData);
             setIdFuncionario2(userData.id);
-            console.log('userId', userData.id);
             setListaCadastro([novoUsuario]);
             await axios.post('/cadastrar-usuario', novoUsuario);
             // Aqui você pode realizar o cadastro, se necessário
@@ -140,6 +130,7 @@ export default function App() {
 
     fetchUserData();
   }, []);
+
 
   //Funções principais
   //Função para cadastrar os funcionários
@@ -292,6 +283,7 @@ export default function App() {
   }
 
   return (
+    
     <main>
       <header className="header"></header>
       <section className="d-flex w-100">
@@ -301,6 +293,9 @@ export default function App() {
           onClickCadastrados={handleCadastrados}
           onClickHome={handleHome}
           onClickPlano={handlePlano}
+          homeRender={homeRender}
+          feedback={feedback}
+          planoDeAcao={planoDeAcao}
         />
 
         <div className="m-3" style={{ width: '70%' }}>

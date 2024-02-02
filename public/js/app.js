@@ -14848,28 +14848,25 @@ function App() {
             case 5:
               responseUser = _context.sent;
               userData = responseUser.data;
-              console.log(userData.setor);
-              _context.next = 10;
+              _context.next = 9;
               return axios.get("/responsavel/".concat(userData.setor));
-            case 10:
+            case 9:
               responseResponsavel = _context.sent;
               userData.responsavel = responseResponsavel.data;
               setUsuario(userData);
-              console.log(responseUser.data.email);
               dadosFeed = [];
-              _context.prev = 15;
-              _context.next = 18;
+              _context.prev = 13;
+              _context.next = 16;
               return axios.get("/feedback/".concat(responseUser.data.email));
-            case 18:
+            case 16:
               dadosFeed = _context.sent;
-              _context.next = 23;
+              _context.next = 21;
               break;
+            case 19:
+              _context.prev = 19;
+              _context.t0 = _context["catch"](13);
             case 21:
-              _context.prev = 21;
-              _context.t0 = _context["catch"](15);
-            case 23:
               setDadosFeedChefe(dadosFeed.data);
-              console.log('dadosFeed', dadosFeed.data);
               avaliacaoChefe = null;
               try {
                 avaliacaoChefe = JSON.parse(dadosFeed.data.avaliacoes);
@@ -14877,7 +14874,6 @@ function App() {
               } catch (error) {
                 console.log('Erro ao fazer o parse da avaliacaoChefe', error);
               }
-              console.log('avaliacaoChefe', avaliacaoChefe);
               planoChefe = null;
               try {
                 planoChefe = JSON.parse(dadosFeed.data.plano);
@@ -14888,56 +14884,51 @@ function App() {
                 setPlanoDoChefe(planoChefe);
               }
               novoUsuario = null;
-              _context.prev = 32;
-              _context.next = 35;
+              _context.prev = 28;
+              _context.next = 31;
               return axios.get("/cadastro/".concat(userData.email));
-            case 35:
+            case 31:
               responseListaOriginal = _context.sent;
               listaOriginal = responseListaOriginal.data;
-              console.log('listaOriginal', listaOriginal);
               setListaCadastro([listaOriginal]);
               setIdFuncionario2(listaOriginal.id);
-              console.log(userData);
-              _context.next = 58;
+              _context.next = 49;
               break;
-            case 43:
-              _context.prev = 43;
-              _context.t1 = _context["catch"](32);
+            case 37:
+              _context.prev = 37;
+              _context.t1 = _context["catch"](28);
               if (!(_context.t1.response && _context.t1.response.status === 404)) {
-                _context.next = 57;
+                _context.next = 48;
                 break;
               }
               console.log('Usuário não cadastrado');
-              console.log(userData.name);
               novoUsuario = {
                 nome: userData.name,
                 email: userData.email,
                 setor: userData.setor,
                 administrador: userData.responsavel
               };
-              console.log('useData dentro do novo', userData);
               setIdFuncionario2(userData.id);
-              console.log('userId', userData.id);
               setListaCadastro([novoUsuario]);
-              _context.next = 55;
+              _context.next = 46;
               return axios.post('/cadastrar-usuario', novoUsuario);
-            case 55:
-              _context.next = 58;
+            case 46:
+              _context.next = 49;
               break;
-            case 57:
+            case 48:
               console.error('Erro ao buscar dados de cadastro:', _context.t1);
-            case 58:
-              _context.next = 63;
+            case 49:
+              _context.next = 54;
               break;
-            case 60:
-              _context.prev = 60;
+            case 51:
+              _context.prev = 51;
               _context.t2 = _context["catch"](2);
               console.error('Erro ao buscar dados:', _context.t2);
-            case 63:
+            case 54:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[2, 60], [15, 21], [32, 43]]);
+        }, _callee, null, [[2, 51], [13, 19], [28, 37]]);
       }));
       return function fetchUserData() {
         return _ref.apply(this, arguments);
@@ -15126,7 +15117,10 @@ function App() {
         onClickCadastrar: handleCadastrar,
         onClickCadastrados: handleCadastrados,
         onClickHome: handleHome,
-        onClickPlano: handlePlano
+        onClickPlano: handlePlano,
+        homeRender: homeRender,
+        feedback: feedback,
+        planoDeAcao: planoDeAcao
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
         className: "m-3",
         style: {
@@ -17770,7 +17764,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ Sidebar)
 /* harmony export */ });
 /* harmony import */ var _Sidebar_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Sidebar.css */ "./resources/js/src/Components/Sidebar.css");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
 
 
 
@@ -17778,82 +17775,88 @@ function Sidebar(_ref) {
   var onClickCadastrados = _ref.onClickCadastrados,
     onClickHome = _ref.onClickHome,
     planoDeAcao = _ref.planoDeAcao,
-    onClickPlano = _ref.onClickPlano;
+    onClickPlano = _ref.onClickPlano,
+    homeRender = _ref.homeRender,
+    feedback = _ref.feedback;
+  console.log('homeRender:', homeRender);
+  console.log('feedback:', feedback);
+  console.log('planoDeAcao:', planoDeAcao);
+
   // Todos as props são enviados para o App.js
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("section", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("section", {
     className: "sidebar d-flex flex-column",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       className: " d-flex justify-content-center",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
         className: "m-3",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
           src: "../images/global.svg",
           alt: "",
           className: "img-fluid"
         })
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-      className: "d-flex mt-2 home",
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+      className: homeRender ? 'd-flex mt-2 home escolhido' : 'd-flex home mt-2',
       style: {
         marginLeft: '50px'
       },
       onClick: onClickHome,
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("svg", {
         xmlns: "http://www.w3.org/2000/svg",
         width: "17",
         height: "17",
         fill: "currentColor",
         className: "bi bi-house mt-1",
         viewBox: "0 0 16 16",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("path", {
           d: "M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"
         })
-      }), ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-        className: "ml-3 home",
+      }), ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+        className: homeRender ? 'ml-3 escolhido' : 'ml-3',
         children: "Home"
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-      className: "d-flex mt-2 home",
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+      className: feedback ? 'd-flex mt-2 home escolhido' : 'd-flex mt-2 home',
       style: {
         marginLeft: '50px'
       },
       onClick: onClickCadastrados,
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("svg", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("svg", {
         xmlns: "http://www.w3.org/2000/svg",
         width: "17",
         height: "17",
         fill: "currentColor",
         className: "bi bi-card-text mt-1",
         viewBox: "0 0 16 16",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("path", {
           d: "M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("path", {
           d: "M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8m0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5"
         })]
-      }), ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-        className: "ml-3 home",
+      }), ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+        className: feedback ? 'ml-3 escolhido' : 'ml-3',
         children: "Feedback"
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: planoDeAcao ? 'd-flex mt-2 home escolhido' : 'd-flex mt-2 home',
       style: {
         marginLeft: '50px'
       },
       onClick: onClickPlano,
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("svg", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("svg", {
         xmlns: "http://www.w3.org/2000/svg",
         width: "16",
         height: "16",
         fill: "currentColor",
         className: "bi bi-calendar-event mt-1",
         viewBox: "0 0 16 16",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("path", {
           d: "M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("path", {
           d: "M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-        className: planoDeAcao ? 'ml-3 home escolhido' : 'ml-3 home',
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+        className: planoDeAcao ? 'ml-3 escolhido' : 'ml-3',
         children: "Plano de A\xE7\xE3o"
       })]
     })]
@@ -19912,7 +19915,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".sidebar{\r\n    width: 25%;\r\n    height: 600px;\r\n    background-color: lightgray;\r\n    display: flex;\r\n\r\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".sidebar{\r\n    width: 25%;\r\n    height: 600px;\r\n    background-color: lightgray;\r\n    display: flex;\r\n\r\n}\r\n\r\n.escolhido{\r\n    color: black;\r\n    font-weight: bolder;\r\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -36,7 +36,7 @@ class CreateNewUser implements CreatesNewUsers
                 },
             ],
             'password' => $this->passwordRules(),
-            'setor' => ['required', 'string', 'max:255','unique:users'],
+            'setor' => ['required', 'string', 'max:255'],
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
 
