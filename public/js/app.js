@@ -14836,7 +14836,7 @@ function App() {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var fetchUserData = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var userData, responseUser, responseResponsavel, dadosFeed, avaliacaoChefe, planoChefe, novoUsuario, responseListaOriginal, listaOriginal;
+        var userData, responseUser, responseResponsavel, dadosFeed, avaliacaoChefe, planoChefe, novoUsuario, responseListaOriginal, listaOriginal, response;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
@@ -14848,24 +14848,25 @@ function App() {
             case 5:
               responseUser = _context.sent;
               userData = responseUser.data;
-              _context.next = 9;
+              console.log('userData', userData);
+              _context.next = 10;
               return axios.get("/responsavel/".concat(userData.setor));
-            case 9:
+            case 10:
               responseResponsavel = _context.sent;
               userData.responsavel = responseResponsavel.data;
               setUsuario(userData);
               dadosFeed = [];
-              _context.prev = 13;
-              _context.next = 16;
+              _context.prev = 14;
+              _context.next = 17;
               return axios.get("/feedback/".concat(responseUser.data.email));
-            case 16:
+            case 17:
               dadosFeed = _context.sent;
-              _context.next = 21;
+              _context.next = 22;
               break;
-            case 19:
-              _context.prev = 19;
-              _context.t0 = _context["catch"](13);
-            case 21:
+            case 20:
+              _context.prev = 20;
+              _context.t0 = _context["catch"](14);
+            case 22:
               setDadosFeedChefe(dadosFeed.data);
               avaliacaoChefe = null;
               try {
@@ -14884,21 +14885,43 @@ function App() {
                 setPlanoDoChefe(planoChefe);
               }
               novoUsuario = null;
-              _context.prev = 28;
-              _context.next = 31;
+              _context.prev = 29;
+              _context.next = 32;
               return axios.get("/cadastro/".concat(userData.email));
-            case 31:
+            case 32:
               responseListaOriginal = _context.sent;
               listaOriginal = responseListaOriginal.data;
+              console.log('listaOriginal', listaOriginal);
+              if (!(userData.name !== listaOriginal.nome || userData.email !== listaOriginal.email)) {
+                _context.next = 47;
+                break;
+              }
+              _context.prev = 36;
+              _context.next = 39;
+              return axios.put("/cadastro/".concat(listaOriginal.id), {
+                nome: userData.name,
+                email: userData.email
+              });
+            case 39:
+              response = _context.sent;
+              window.location.reload();
+              console.log(response.data);
+              _context.next = 47;
+              break;
+            case 44:
+              _context.prev = 44;
+              _context.t1 = _context["catch"](36);
+              console.error('Erro ao atualizar cadastro:', _context.t1);
+            case 47:
               setListaCadastro([listaOriginal]);
               setIdFuncionario2(listaOriginal.id);
-              _context.next = 49;
+              _context.next = 63;
               break;
-            case 37:
-              _context.prev = 37;
-              _context.t1 = _context["catch"](28);
-              if (!(_context.t1.response && _context.t1.response.status === 404)) {
-                _context.next = 48;
+            case 51:
+              _context.prev = 51;
+              _context.t2 = _context["catch"](29);
+              if (!(_context.t2.response && _context.t2.response.status === 404)) {
+                _context.next = 62;
                 break;
               }
               console.log('Usuário não cadastrado');
@@ -14910,25 +14933,25 @@ function App() {
               };
               setIdFuncionario2(userData.id);
               setListaCadastro([novoUsuario]);
-              _context.next = 46;
+              _context.next = 60;
               return axios.post('/cadastrar-usuario', novoUsuario);
-            case 46:
-              _context.next = 49;
+            case 60:
+              _context.next = 63;
               break;
-            case 48:
-              console.error('Erro ao buscar dados de cadastro:', _context.t1);
-            case 49:
-              _context.next = 54;
+            case 62:
+              console.error('Erro ao buscar dados de cadastro:', _context.t2);
+            case 63:
+              _context.next = 68;
               break;
-            case 51:
-              _context.prev = 51;
-              _context.t2 = _context["catch"](2);
-              console.error('Erro ao buscar dados:', _context.t2);
-            case 54:
+            case 65:
+              _context.prev = 65;
+              _context.t3 = _context["catch"](2);
+              console.error('Erro ao buscar dados:', _context.t3);
+            case 68:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[2, 51], [13, 19], [28, 37]]);
+        }, _callee, null, [[2, 65], [14, 20], [29, 51], [36, 44]]);
       }));
       return function fetchUserData() {
         return _ref.apply(this, arguments);

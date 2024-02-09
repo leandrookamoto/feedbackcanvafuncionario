@@ -17,6 +17,31 @@ class CadastroController extends Controller
     }
 
 
+    public function atualizarCadastro($id, Request $request)
+    {
+        // Valide os dados da solicitação, se necessário
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+        ]);
+
+        // Encontre o registro pelo ID
+        $cadastro = Cadastro::find($id);
+
+        // Verifique se o registro foi encontrado
+        if ($cadastro) {
+            // Acesse diretamente os atributos do objeto JSON enviado pelo Axios
+            $cadastro->nome = $request->nome;
+            $cadastro->email = $request->email;
+
+            // Salve as alterações
+            $cadastro->save();
+
+            return response()->json(['mensagem' => 'Cadastro atualizado com sucesso']);
+        } else {
+            return response()->json(['mensagem' => 'Cadastro não encontrado'], 404);
+        }
+    }
 
      public function getResponsavelCadastro($setor) {
         $cadastro = Setor::where('setor', $setor)->first();

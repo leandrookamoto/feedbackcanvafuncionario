@@ -64,7 +64,7 @@ Route::middleware([
 
     Route::put('/feedback/{id}', [CadastroController::class, 'updatePlano']);
 
-    
+    Route::put('/cadastro/{id}', [CadastroController::class, 'atualizarCadastro']);
 
 
 });

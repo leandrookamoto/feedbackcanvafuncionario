@@ -57,6 +57,7 @@ export default function App() {
       try {
         responseUser = await axios.get('/user');
         userData = responseUser.data;
+        console.log('userData', userData)
 
 
         const responseResponsavel = await axios.get(
@@ -102,6 +103,20 @@ export default function App() {
             `/cadastro/${userData.email}`,
           );
           const listaOriginal = responseListaOriginal.data;
+          console.log('listaOriginal',listaOriginal);
+
+          if(userData.name!==listaOriginal.nome || userData.email!==listaOriginal.email){
+            try {
+              const response = await axios.put(`/cadastro/${listaOriginal.id}`, {
+                  nome: userData.name,
+                  email: userData.email,
+              });
+              window.location.reload();
+              console.log(response.data);
+          } catch (error) {
+              console.error('Erro ao atualizar cadastro:', error);
+          }
+          }
           setListaCadastro([listaOriginal]);
           setIdFuncionario2(listaOriginal.id);
         } catch (error) {
