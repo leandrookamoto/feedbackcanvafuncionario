@@ -10,10 +10,6 @@ export default function Sidebar({
   feedback,
 }) {
 
-  console.log('homeRender:', homeRender);
-console.log('feedback:', feedback);
-console.log('planoDeAcao:', planoDeAcao);
-
   // Todos as props são enviados para o App.js
   return (
     <section className="sidebar d-flex flex-column">

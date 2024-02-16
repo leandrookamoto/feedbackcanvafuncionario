@@ -17801,10 +17801,6 @@ function Sidebar(_ref) {
     onClickPlano = _ref.onClickPlano,
     homeRender = _ref.homeRender,
     feedback = _ref.feedback;
-  console.log('homeRender:', homeRender);
-  console.log('feedback:', feedback);
-  console.log('planoDeAcao:', planoDeAcao);
-
   // Todos as props são enviados para o App.js
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("section", {
     className: "sidebar d-flex flex-column",
@@ -19938,7 +19934,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".sidebar{\r\n    width: 25%;\r\n    height: 600px;\r\n    background-color: lightgray;\r\n    display: flex;\r\n\r\n}\r\n\r\n.escolhido{\r\n    color: black;\r\n    font-weight: bolder;\r\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".sidebar{\r\n    width: 25%;\r\n    min-height: 600px;\r\n    background-color: lightgray;\r\n    display: flex;\r\n\r\n}\r\n\r\n.escolhido{\r\n    color: black;\r\n    font-weight: bolder;\r\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

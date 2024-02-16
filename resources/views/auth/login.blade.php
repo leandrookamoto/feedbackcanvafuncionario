@@ -6,7 +6,7 @@
             </x-slot>
 
             <x-validation-errors class="mb-4" />
-
+            <div style="margin-bottom: 20px; font-weight: bold; font-size: 20px">Feedback Canva Colaboradores</div>
             @if (session('status'))
                 <div class="mb-4 font-medium text-sm text-green-600">
                     {{ session('status') }}
