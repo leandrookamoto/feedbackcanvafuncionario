@@ -31,11 +31,14 @@
             </div>
 
             
-            <div class="mt-4">
+              <div class="mt-4">
                 <x-label for="setor" value="{{ __('Setor') }}" />
-                <select id="setor" name="setor" class="block mt-1 w-full" required autofocus style='border-color: rgb(209 213 219); border-radius: 7px;'>
-                    @foreach($setores as $id => $nome)
-                        <option value="{{ $nome }}">{{ $nome }}</option>
+                <select id="setor" name="setor" class="block mt-1 w-full" required autofocus
+                    style='border-color: rgb(209 213 219); border-radius: 7px;'>
+                    @foreach ($setores as $id => $nome)
+                        @if ($nome !== 'Robo')
+                            <option value="{{ $nome }}">{{ $nome }}</option>
+                        @endif
                     @endforeach
                 </select>
             </div>
